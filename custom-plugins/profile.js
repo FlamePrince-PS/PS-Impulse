@@ -47,7 +47,7 @@ function pColor(user) {
 }
 
 function pBorder(user) {
-	let border = Db.profile.get(user, {daat: {title: {}, music: {}}}).border;
+	let border = Db.profile.get(user, {data: {title: {}, music: {}}}).border;
 	if (!border) return `1px solid`;
 	return `${border}`;
 }
