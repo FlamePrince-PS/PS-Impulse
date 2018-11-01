@@ -321,6 +321,8 @@ class Pokemon {
 		// OMs
 
 		/**@type {string | undefined} */
+		this.innate = undefined;
+		/**@type {string | undefined} */
 		this.originalSpecies = undefined;
 		/**@type {?boolean} */
 		this.gluttonyFlag = null;
