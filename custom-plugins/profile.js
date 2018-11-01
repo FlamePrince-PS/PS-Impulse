@@ -46,6 +46,12 @@ function pColor(user) {
 	return `<font color="${color}">`;
 }
 
+function pBorder(user) {
+	let border = Db.profile.get(user, {daat: {title: {}, music: {}}}).border;
+	if (!border) return `1px solid`;
+	return `${border}`;
+}
+
 function showBadges(user) {
 	if (Db.userBadges.has(toId(user))) {
 		let badges = Db.userBadges.get(toId(user));
@@ -329,6 +335,42 @@ exports.commands = {
 		/type help - Displays a list of type commands.`,
 	],
 
+	profileborder: "pborder",
+	pborder: {
+		set: "add",
+		add: function (target, room, user) {
+			if (!target) return this.parse("/pborder help");
+			let profile = Db.profile.get(user.userid, {data: {title: {}, music: {}}});
+			let border = target.trim();
+			profile.border = border;
+			Db.profile.set(user.userid, profile);
+			this.sendReply(`You have set your profile border to "${border}"`);
+		},
+
+		delete: "remove",
+		remove: function (target, room, user) {
+			if (!this.can("profile")) return false;
+			let userid = toId(target);
+			let profile = Db.profile.get(userid, {data: {title: {}, music: {}}});
+			if (!target) return this.parse("/pborder help");
+			if (profile.border) return this.errorReply(`${target} doesn't have his profile broder set.`);
+			delete profile.border;
+			Db.profile.set(userid, profile);
+			if (Users(userid)) Users(userid).popup(`|html|${Server.nameColor(user.name, true)} has removed your profile border.`);
+			this.sendReply(`You've removed ${target}'s profile border.`);
+		},
+
+		"": "help",
+		help: function () {
+			this.parse(`/help pborder`);
+		},
+	},
+	pborderhelp: [
+		`/pborder set [value] - Sets your profile border.
+/pborder delete [user] - Remove user's profile border.
+/pborderhelp - Shows this command.`
+		],
+			
 	profilecolor: "pcolor",
 	pcolor: {
 		set: "add",
@@ -547,9 +589,9 @@ exports.commands = {
 
 		let profileData = ``;
 		if (profile.background) {
-			profileData += `<div style="background:url(${profile.background}); background-size: 100% 100%; height: 160px; padding: 5px; border: 2px dashed; overflow-y: auto">`;
+			profileData += `<div style="background:url(${profile.background}); background-size: 100% 100%; height: 160px; padding: 5px; border: ${pBorder(userid)}; border-radius: 2px; overflow-y: auto">`;
 		} else {
-			profileData += `<div style="max-height: 160px; overflow-y: auto">`;
+			profileData += `<div style="max-height: 160px; border: ${pBorder(userid)}; border-radius: 2px; overflow-y: auto">`;
 		}
 		profileData += `${showBadges(toId(username))}`;
 		profileData += `<div style="display: inline-block; width: 6.5em; height: 100%; vertical-align: top"><img src="${avatar}" height="80" width="80" align="left"></div>`;
@@ -574,7 +616,7 @@ exports.commands = {
 		if (Db.switchfc.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>Switch Friend Code:</strong> SW-${Db.switchfc.get(userid)}</font><br />`;
 		if (profile.data.music.link) profileData += `&nbsp;<acronym title="${profile.data.music.title}"><br /><audio src="${profile.data.music.link}" controls="" style="width: 100%;"></audio></acronym><br />`;
 		profileData += `</div>`;
-		this.sendReplyBox(profileData);
+		this.add(`|html|${profileData}`);
 	},
 
 	profilehelp: [`/profile [user] - Shows a user's profile. Defaults to yourself.
