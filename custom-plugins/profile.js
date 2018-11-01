@@ -48,7 +48,7 @@ function pColor(user) {
 
 function pBorder(user) {
 	let border = Db.profile.get(user, {data: {title: {}, music: {}}}).border;
-	if (!border) return `1px solid`;
+	if (!border) return '1px solid';
 	return `${border}`;
 }
 
@@ -616,7 +616,7 @@ exports.commands = {
 		if (Db.switchfc.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>Switch Friend Code:</strong> SW-${Db.switchfc.get(userid)}</font><br />`;
 		if (profile.data.music.link) profileData += `&nbsp;<acronym title="${profile.data.music.title}"><br /><audio src="${profile.data.music.link}" controls="" style="width: 100%;"></audio></acronym><br />`;
 		profileData += `</div>`;
-		this.add(`|html|${profileData}`);
+		this.sendReplyBox(`${profileData}`);
 	},
 
 	profilehelp: [`/profile [user] - Shows a user's profile. Defaults to yourself.
