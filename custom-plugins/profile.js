@@ -46,6 +46,26 @@ function pColor(user) {
 	return `<font color="${color}">`;
 }
 
+function showBadges(user) {
+    if (Db.userBadges.has(toId(user))) {
+        let badges = Db.userBadges.get(toId(user));
+        let css = `border:none; background:none; padding:0;`;
+        if (typeof badges !== 'undefined' && badges !== null) {
+            let output = `<td><div style="float: right; background: rgba(69, 76, 80, 0.4); text-align: center; border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset; margin: 0px 3px;">`;
+            output += ` <table style="${css}"> <tr>`;
+            for (let i in badges) {
+                if (i !== 0 && i % 4 === 0) output += `</tr> <tr>`;
+                output += `<td><button style="${css}" name="send" value="/badges info ${badges[i]}">` +
+                `<img src="${Db.badgeData.get(badges[i]).img}" height="16" width="16" alt="${badges[i]}" title="${badges[i]}"></button></td>`;
+            }
+            output += `</tr> </table></div></td>`;
+            return output;
+        }
+    }
+    return ``;
+
+}
+
 exports.commands = {
 	dev: {
 		give: function (target, room, user) {
@@ -532,6 +552,7 @@ exports.commands = {
 		} else {
 			profileData += `<div style="max-height: 160px; overflow-y: auto">`;
 		}
+		profileData += `${showBadges(toId(username))}`;
 		profileData += `<div style="display: inline-block; width: 6.5em; height: 100%; vertical-align: top"><img src="${avatar}" height="80" width="80" align="left"></div>`;
 		profileData += `<div style="display: inline-block">&nbsp;${pColor(userid)}<strong>Name:</strong></font> ${Server.nameColor(username, true)}&nbsp;`;
 		if (Users(userid) && ip && ip !== null) {
