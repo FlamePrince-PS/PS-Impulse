@@ -353,7 +353,7 @@ exports.commands = {
 			let userid = toId(target);
 			let profile = Db.profile.get(userid, {data: {title: {}, music: {}}});
 			if (!target) return this.parse("/pborder help");
-			if (profile.border) return this.errorReply(`${target} doesn't have his profile broder set.`);
+			if (!profile.border) return this.errorReply(`${target} doesn't have his profile broder set.`);
 			delete profile.border;
 			Db.profile.set(userid, profile);
 			if (Users(userid)) Users(userid).popup(`|html|${Server.nameColor(user.name, true)} has removed your profile border.`);
@@ -589,9 +589,9 @@ exports.commands = {
 
 		let profileData = ``;
 		if (profile.background) {
-			profileData += `<div style="background:url(${profile.background}); background-size: 100% 100%; height: 160px; padding: 5px; border: ${pBorder(userid)}; border-radius: 2px; overflow-y: auto">`;
+			profileData += `<div style="background:url(${profile.background}); background-size: 100% 100%; height: 160px; padding: 5px; border: ${pBorder(userid)}; overflow-y: auto">`;
 		} else {
-			profileData += `<div style="max-height: 160px; border: ${pBorder(userid)}; border-radius: 2px; overflow-y: auto">`;
+			profileData += `<div style="max-height: 160px; border: ${pBorder(userid)}; overflow-y: auto">`;
 		}
 		profileData += `${showBadges(toId(username))}`;
 		profileData += `<div style="display: inline-block; width: 6.5em; height: 100%; vertical-align: top"><img src="${avatar}" height="80" width="80" align="left"></div>`;
@@ -621,6 +621,7 @@ exports.commands = {
 
 	profilehelp: [`/profile [user] - Shows a user's profile. Defaults to yourself.
 /pcolor help - Shows profile color commands.
+/pborder help - Shows profile border commands.
 /pokemon set [Pokemon] - Set your Favorite Pokemon onto your profile.
 /pokemon delete - Delete your Favorite Pokemon from your profile.
 /type set [type] - Set your favorite type.
