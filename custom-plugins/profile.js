@@ -48,7 +48,7 @@ function pColor(user) {
 
 function pBorder(user) {
 	let border = Db.profile.get(user, {data: {title: {}, music: {}}}).border;
-	if (!border) return '1px solid';
+	if (!border) return `1px solid`;
 	return `${border}`;
 }
 
@@ -366,7 +366,8 @@ exports.commands = {
 		},
 	},
 	pborderhelp: [
-		`/pborder set [value] - Sets your profile border.
+		`Profile Border commands by: Prince Sky.
+/pborder set [value] - Sets your profile border.
 /pborder delete [user] - Remove user's profile border.
 /pborderhelp - Shows this command.`
 		],
@@ -403,7 +404,8 @@ exports.commands = {
 		},
 	},
 	pcolorhelp: [
-		`/pcolor set [hex code] - Sets your profile color as [hex code].
+		`Profile Color Commands By: Prince Sky.
+		/pcolor set [hex code] - Sets your profile color as [hex code].
 		/pcolor take [user] - Removes [user]'s profile color. Requires %, @, &, ~
 		/pcolor help - Displays the profile color commands.`,
 	],
