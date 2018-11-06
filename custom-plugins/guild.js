@@ -1401,7 +1401,7 @@ exports.commands = {
 					"</div>"
 				);
 			},
-		},*/
+		},
 
 		gvg: {
 			accept: function (target, room, user) {
@@ -1644,7 +1644,7 @@ exports.commands = {
 					"</div>"
 				);
 			},
-		},
+		},*/
 
 		'point': 'points',
 		points: {
@@ -1780,10 +1780,10 @@ exports.commands = {
 				"/guild leave - Leaves your current guild.<br />" +
 				"/guild list - Displays a list of guild.<br />" +
 				"/guild members [guild name] - Displays the memberlist for a guild.<br /><br />" +
-				"Guild Challenging:<br />" +
+				/*"Guild Challenging:<br />" +
 				"/guild registerteam [guild name], [pastebin of team] - Registers your team so you can challenge the guild.<br />" +
 				"/guild challenge [guild name], [user] - Challenges a user with the team you registered.<br />" +
-				"/guild resetteam [user] - Resets a users registered team so they can register again. Requires permission level 4 or higher. (Default: Champions)<br /><br />" +
+				"/guild resetteam [user] - Resets a users registered team so they can register again. Requires permission level 4 or higher. (Default: Champions)<br /><br />" +*/
 				"guild Rank Commands:<br />" +
 				"/guild rank give [user], [rank] - Gives a user a rank.<br />" +
 				"/guild rank take [user], [rank] - Removes a rank from a user.<br />" +
@@ -1796,7 +1796,7 @@ exports.commands = {
 				"/guild badge edit [badge name], [badge image], [badge description] - Edits a guild badge.<br />" +
 				"/guild badge delete [badge name] - Deletes a guild badge.<br />" +
 				"/guild badge list [guild name] - Lists a guilds badges.<br />" +
-				"/guild badge view [user] - Views a users guild badges<br /><br />" +*/
+				"/guild badge view [user] - Views a users guild badges<br /><br />" +
 				"Guild vs Guild Commands:<br />" +
 				"/gvg challenge [guild], [mode (normal or quick)], [size (must be odd number)] - Challenges a guild to a Guild vs Guild in the current room.<br />" +
 				"(Quick mode lets players battle each other at the same time, normal mode limits it to one battle at a time.)<br />" +
@@ -1805,7 +1805,7 @@ exports.commands = {
 				"/gvg invite [user] - Invites a guild member to join the Guild vs Guild.<br />" +
 				"/gvg join - Joins a Guild vs Guild. Must be invited with /gvg invite first.<br />" +
 				"/gvg leave - Leaves a Guild vs Guild after you join. May not be used once the Guild vs Guild starts.<br />" +
-				"/gvg end - Forcibly ends a Guild vs Guild.<br /><br />" +
+				"/gvg end - Forcibly ends a Guild vs Guild.<br /><br />" +*/
 				"Guild Points:<br />" +
 				"/guild points give [guild], [amount] - Gives a guild points.<br />" +
 				"/guild points take [guild], [amount] - Takes points from a guild.<br />" +
