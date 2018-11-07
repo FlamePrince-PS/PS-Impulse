@@ -238,7 +238,7 @@ exports.commands = {
 		user.customSymbol = false;
 		user.updateIdentity();
 		this.sendReply("You have now revealed your auth symbol.");
-		this.sendReply("Your symbol has been reset.");
+		this.sendReply("Your symbol been reset.");
 	},
 	showhelp: ["/show - Displays user's global rank. Requires: & ~"],
 
@@ -246,16 +246,13 @@ exports.commands = {
 		let popup = "|html|" + "<font size=5 color=#0066ff><u>" + serverName + " Credits</b></u></font><br />" +
 			"<br />" +
 			"<u><b>Server Maintainers:</u></b><br />" +
-			"- " + Server.nameColor('PrinceSky', true) + " (Owner, Policy + Technical Admin, Development)<br />" +
-			"- " + Server.nameColor('Anrin N', true) + " (Owner, Technical Admin, Development)<br />" +
-			"- " + Server.nameColor('Shivay', true) + " (Technical Admin, Development)<br />" +
-			"- " + Server.nameColor('A Flying Phantom', true) + " (Technical Admin, Development, CSS)<br />" +
+			"- " + Server.nameColor('Prince Sky', true) + " (Owner, System Operator, Policy Admin, Development, CSS)<br />" +
 			"<br />" +
 			"<u><b>Contributors:</b></u><br />" +
-			"- " + Server.nameColor('Pokem9n', true) + " (Admin)<br />" +
-			"- " + Server.nameColor('A Helpful Rayquaza', true) + " (Admin, Development)<br />" +
-			/*"- " + Server.nameColor('MechSteelix', true) + " (Policy Leader)<br/>" +
-			"- " + Server.nameColor('Electric Z', true) + " (Policy Admin)<br />" +
+			"- " + Server.nameColor('Shivay', true) + " (System Operator, Development)<br />" +
+			"- " + Server.nameColor('Pokemon 1920', true) + " (Server Admin, Community Admin, Art)<br />" +
+			"- " + Server.nameColor('A Flying Phantom', true) + " (Server Admin, Development, CSS)<br/>" +
+			/*"- " + Server.nameColor('Electric Z', true) + " (Policy Admin)<br />" +
 			"- " + Server.nameColor('Opple', true) + " (Community Leader)<br />" +
 			"- " + Server.nameColor('Perison', true) + " (Community Admin)<br/>" +
 			"- " + Server.nameColor('Volco', true) + " (Technical Leader, Development)<br />" +*/
@@ -266,12 +263,13 @@ exports.commands = {
 			"- " + Server.nameColor('SSBN-640', true) + " (Development)<br />" +
 			"- " + Server.nameColor('wgc', true) + " (Development)<br />" +
 			"<br />" +*/
-			/*"<u><b>Retired Staff:</b></u><br />" +
-			"- " + Server.nameColor('Mystifi', true) + " (Former Owner, Sysadmin and Technical Admin)<br />" +
-			"<br />" +*/
+			"<u><b>Retired Staff:</b></u><br />" +
+			"- " + Server.nameColor('Anrin N', true) + " (Former Owner, System Operator, Development)<br />" +
+			"<br />" +
 			"<u><b>Special Thanks:</b></u><br />" +
 			"- Our Staff Members<br />" +
-			"- Our Regular Users<br />";
+			"- Our Regular Users<br />" +
+			"- All Custom Plugins Creators.<br />";
 		user.popup(popup);
 	},
 
