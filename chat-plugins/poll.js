@@ -28,7 +28,7 @@ class Poll {
 			timeout: null,
 			timeoutMins: 0,
 			startTime: Date.now(),
-			startedUser: WL.nameColor(name, true, true),
+			startedUser: Server.nameColor(name, true, true),
 			options: new Map(),
 		}];
 		for (let i = 0; i < options.length; i++) {
@@ -288,7 +288,7 @@ const commands = {
 					timeout: null,
 					timeoutMins: 0,
 					startTime: Date.now(),
-					startedUser: WL.nameColor(user.name, true, true),
+					startedUser: Server.nameColor(user.name, true, true),
 					options: new Map(),
 				});
 				for (let i = 0; i < options.length; i++) {
