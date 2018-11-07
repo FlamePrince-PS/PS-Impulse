@@ -369,9 +369,9 @@ function getTeam(link, callback) {
 }
 Server.getTeam = getTeam;
 
-function isOdd(number) {
+/*function isOdd(number) {
 	return (number % 2) === 1;
-}
+}*/
 
 function hasPermission(user, permission) {
 	let league = leagues[toId(getLeague(user))];

@@ -63,7 +63,7 @@ function showBadges(user) {
 				if (i !== 0 && i % 4 === 0) output += '</tr> <tr>';
 				output += '<td><button style="' + css + '" name="send" value="/badges info, ' + badges[i] + '">' +
 					'<img src="' + Db.badgeData.get(badges[i])[1] + '" height="16" width="16" alt="' + badges[i] + '" title="' + badges[i] + '" >' + '</button></td>';
-			} 
+			}
 			output += '</tr> </table></div></td>';
 			return output;
 		}
@@ -369,9 +369,9 @@ exports.commands = {
 		`Profile Border commands by: Prince Sky.
 /pborder set [value] - Sets your profile border.
 /pborder delete [user] - Remove user's profile border.
-/pborderhelp - Shows this command.`
-		],
-			
+/pborderhelp - Shows this command.`,
+	],
+
 	profilecolor: "pcolor",
 	pcolor: {
 		set: "add",
@@ -571,7 +571,7 @@ exports.commands = {
 		if (target.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
 		if (!this.runBroadcast()) return;
 		let targetUser = Users.get(target);
-		let online = (targetUser ? targetUser.connected : false);
+		//let online = (targetUser ? targetUser.connected : false);
 		let username = (targetUser ? targetUser.name : target);
 		let userid = (targetUser ? targetUser.userid : toId(target));
 		let profile = Db.profile.get(userid, {data: {title: {}, music: {}}});

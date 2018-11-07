@@ -328,7 +328,7 @@ class CommandContext {
 					message = message.charAt(0) + message;
 				}
 			}
-			
+
 			let lastMessageTime = this.user.lastMessageTime;
 			message = this.canTalk(message);
 			if (message && Date.now() > (lastMessageTime + Config.expTimer)) giveExp = true;

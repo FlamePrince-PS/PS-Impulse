@@ -29,14 +29,12 @@ exports.commands = {
 			url: 'http://www.urbandictionary.com/iphone/search/define',
 			term: target,
 			headers: {
-				'Referer': 'http://m.urbandictionary.com'
+				'Referer': 'http://m.urbandictionary.com',
 			},
 			qs: {
-				'term': target
-			}
+				'term': target,
+			},
 		};
-
-		let milliseconds = ((44640 * 60) * 1000);
 
 		if (urbanCache[target.toLowerCase().replace(/ /g, '')] && Math.round(Math.abs((urbanCache[target.toLowerCase().replace(/ /g, '')].time - Date.now()) / (24 * 60 * 60 * 1000))) < 31) {
 			return this.sendReplyBox("<b>" + Chat.escapeHTML(target) + ":</b> " + urbanCache[target.toLowerCase().replace(/ /g, '')].definition.substr(0, 400));
@@ -66,5 +64,5 @@ exports.commands = {
 		}
 		request(options, callback);
 	},
-	udhelp: ["/urbandefine [phrase] - Shows the urban definition of the phrase. If you don't put in a phrase, it will show you a random phrase from urbandefine."]
+	udhelp: ["/urbandefine [phrase] - Shows the urban definition of the phrase. If you don't put in a phrase, it will show you a random phrase from urbandefine."],
 };

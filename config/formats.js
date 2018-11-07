@@ -1018,7 +1018,7 @@ let Formats = [
 
 	// SGgame Formats
 	////////////////////////////////////////////////////////////////////
- 	{
+	{
 		section: "SG Game Formats",
 		column: 2,
 	},
@@ -1031,7 +1031,7 @@ let Formats = [
 		allowBag: true,
 		takeItems: true,
 		challengeShow: false,
- 		mod: 'sggame',
+		mod: 'sggame',
 		ruleset: ['HP Percentage Mod', 'Cancel Mod'],
 		banlist: ['CAP'],
 	},
@@ -1044,7 +1044,7 @@ let Formats = [
 		allowBag: true,
 		takeItems: true,
 		challengeShow: false,
- 		mod: 'sggame',
+		mod: 'sggame',
 		ruleset: ['Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: ['CAP'],
 	},
@@ -1055,7 +1055,7 @@ let Formats = [
 		rated: false,
 		useSGgame: true,
 		noExp: true,
- 		mod: 'sggame',
+		mod: 'sggame',
 		ruleset: ['Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: ['CAP'],
 	},
@@ -1066,7 +1066,7 @@ let Formats = [
 		forcedLevel: 100,
 		useSGgame: true,
 		noExp: true,
- 		mod: 'sggame',
+		mod: 'sggame',
 		ruleset: ['Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: ['CAP'],
 	},

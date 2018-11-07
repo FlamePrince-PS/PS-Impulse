@@ -200,7 +200,7 @@ exports.commands = {
 				}
 				if (curRoom.isPrivate) {
 					privateRoom.push('<a href="/' + toId(curRoom.title) + '" class="ilink">' + Chat.escapeHTML(curRoom.title) + '</a> (' + curRoom.userCount + ')');
-					continue;				
+					continue;
 				}
 			}
 			if (curRoom.type !== 'battle') nonOfficial.push('<a href="/' + toId(curRoom.title) + '" class="ilink">' + curRoom.title + '</a> (' + curRoom.userCount + ')');
@@ -260,7 +260,7 @@ exports.commands = {
 			"- " + Server.nameColor('Perison', true) + " (Community Admin)<br/>" +
 			"- " + Server.nameColor('Volco', true) + " (Technical Leader, Development)<br />" +*/
 			"<br />" +
-			/*"<u><b>Contributors:</b></u><br />" +
+		/*"<u><b>Contributors:</b></u><br />" +
 			"- " + Server.nameColor('Ashley the Pikachu', true) + " (Spriting, Digimon Project)<br />" +
 			"- " + Server.nameColor('Insist', true) + " (Development)<br />" +
 			"- " + Server.nameColor('SSBN-640', true) + " (Development)<br />" +
