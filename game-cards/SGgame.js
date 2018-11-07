@@ -1207,6 +1207,27 @@ exports.commands = {
 		return this.sendReply(`${u.userid} has been given ${target[2]} ${target[1]}'s. They now have ${p.bag.pokeballs[target[1]]} ${target[1]}'s.`);
 	},
 	givepokeballshelp: ['/givepokeballs [user], [type], [amount] - Give a user pokeballs. Requires global @ & ~'],
+	sgmz: function (target, room, user) {
+		// Allows admin to give more pokeballs during the alpha
+		if (!this.can('kill')) return;
+		target = target.split(',').map(part => {
+			return toId(part);
+		});
+		if (target.length < 3) return this.parse(`/help sgmz`);
+		let u = target[0] = Users(target[0]);
+		if (!u) return this.errorReply(`User "${target[0]}" not found.`);
+		//if (!['pokeball', 'greatball', 'ultraball', 'masterball'].includes(target[1])) return this.parse(`/help givepokeballs`);
+		//if (target[1] === 'masterball' && !user.can('lockdown')) return this.errorReply(`Only Administrators may give masterballs.`);
+		target[2] = parseInt(target[2]);
+		if (isNaN(target[2]) || target[2] < 1 || target[2] > 1) return this.errorReply(`Mega Stone/Z Crystal amount must be a number 1.`);
+		let p = Db.players.get(u.userid);
+		if (!p) return this.errorReply(`${u.userid} has not started SGgame and cannot be given mega stone / z crystal at this time.`);
+		if (!p.bag.items[target[1]]) p.bag.items[target[1]] = 0;
+		p.bag.items[target[1]] += target[2];
+		Db.players.set(u.userid, p);
+		return this.sendReply(`${u.userid} has been given ${target[2]} ${target[1]}'s. They now have ${p.bag.items[target[1]]} ${target[1]}'.`);
+	},
+	sgmzhelp: ['/sgmz [user], [type], [amount] - Give a user mega stone/z crystal. Requires global ~'],
 	exportteam: function (target, room, user) {
 		// Allow users to save their SGgame teams to teambuilder
 		let player = Db.players.get(user.userid);
