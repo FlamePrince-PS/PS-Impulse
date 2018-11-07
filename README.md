@@ -142,11 +142,8 @@ Owner
 
 - FlamePrince-PS
 
-Major Contributors
-
-**All respectable custom-plugins & SGgame creators.**
-
 
 Special thanks
 
 - See http://pokemonshowdown.com/credits
+- All custom-plugins creators.
