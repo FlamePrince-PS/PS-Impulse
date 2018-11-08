@@ -4,7 +4,6 @@ const http = require("http");
 const FS = require("../lib/fs.js");
 
 let udCache = {};
-let word = word.toLowerCase().replace(/ /g, '');
 
 exports.commands = {
   "!urbandefine": true,
@@ -44,12 +43,12 @@ exports.commands = {
 					this.sendReplyBox(`No results for <strong>"${target}"</strong>.`);
 					if (room) room.update();
 					return;
-				} else {
+				} else {/*
 					if (!definitions[0][`word`] || !definitions[0][`definition`]) {
 						this.sendReplyBox(`No results for <strong>"${target}"</strong>.`);
 						if (room) room.update();
 						return;
-					}
+					}*/
 					let output = `<details><summary><strong>This may contain NFW content. Viewer's discretion advised.</strong></summary><br><strong>${definitions[0][`word`]}</strong>:<br><br>${definitions[0][`definition`].replace(/\r\n/g, `<br />`).replace(/\n/g, ` `)}</details>`;
 					if (output.length > 400) output = output.slice(0, 400) + `...`;
 					this.sendReplyBox(output);
