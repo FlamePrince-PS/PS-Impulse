@@ -6,7 +6,7 @@ custom-plugins/shop-private.js
 custom-plugins/tictactoe.js
 custom-plugins/eShop.js
 custom-plugins/passthebomb.js
-custom-plugins/urbandictionary.js
+custom-plugins/ud.js
 custom-plugins/misc.js
 config/formats.js
 custom-plugins/profile.js
