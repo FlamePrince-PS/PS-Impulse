@@ -4,6 +4,7 @@ const http = require("http");
 const FS = require("../lib/fs.js");
 
 let udCache = {};
+let word = word.toLowerCase().replace(/ /g, '');
 
 exports.commands = {
   "!urbandefine": true,
