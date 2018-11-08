@@ -29,7 +29,6 @@ exports.commands = {
 
 		http.get(options, res => {
 			let data = ``;
-			let word = `word`;
 			res.on(`data`, chunk => {
 				data += chunk;
 			}).on(`end`, () => {
@@ -45,6 +44,7 @@ exports.commands = {
 					if (room) room.update();
 					return;
 				} else {
+					let word = `word`;
 					if (!definitions[0][`word`] || !definitions[0][`definition`]) {
 						this.sendReplyBox(`No results for <strong>"${target}"</strong>.`);
 						if (room) room.update();
