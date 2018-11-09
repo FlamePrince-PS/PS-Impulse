@@ -657,7 +657,7 @@ class CommandContext {
 	/* Used for ladders, profile and more.*/
 	sendRB(html) {
 		this.sendReply(`|html|${html}`);
-	},
+	}
 	/**
 	 * @param {string} message
 	 */
