@@ -496,6 +496,52 @@ exports.commands = {
 		/music help - Displays help on the profile music commands.`,
 	],
 
+
+	profileabout: 'pabout',
+	pabout: {
+		set: function (target, room, user) {
+			if (room.battle) return this.errorReply(`Please use this command outside of battle rooms.`);
+			if (!user.autoconfirmed) return this.errorReply(`You must be autoconfirmed to use this command.`);
+			if (!target) return this.parse(`/pabouthelp`);
+			let ab = target;
+			if (ab.length > 300) return this.errorReply(`About can't be longer than 300 characters.`);
+			Db.about.set(user.userid, ab);
+			this.sendReply(`You've set your profile about.`);
+		},
+		remove: "delete",
+		delete: function (target, room, user) {
+			if (room.battle) return this.errorReply("Please use this command outside of battle rooms.");
+			if (!user.autoconfirmed) return this.errorReply("You must be autoconfirmed to use this command.");
+			if (!target) {
+				if (!Db.about.has(user.userid)) return this.errorReply("Your about isn't set.");
+				Db.about.remove(user.userid);
+				return this.sendReply("Your about has been deleted from the server.");
+			} else {
+				if (!this.can("profile")) return false;
+				let userid = toId(target);
+				if (!Db.about.has(userid)) return this.errorReply(`${target} hasn't set a about.`);
+				Db.about.remove(userid);
+				return this.sendReply(`${target}'s About has been deleted from the server.`);
+			}
+		},
+		show: function (target, room, user) {
+		    if (room.battle) return this.errorReply(`Please use this command outside of battle rooms.`);
+		    let tar = target.toLowerCase();
+		    let show = Db.about.get(tar);
+		    if (Users(user)) Users(user).popup(`|html|${show}`);
+		},
+		"": "help",
+		help: function () {
+		    this.parse(`/pabouthelp`);
+		},
+	},
+	pabouthelp: [`
+	Profile About Commands By: Prince Sky.
+	/pabout set [about] - Set your profile about.
+	/pabout delete - delete your profile about.
+	`],
+
+
 	pokemon: {
 		add: "set",
 		set: function (target, room, user) {
@@ -614,6 +660,7 @@ exports.commands = {
 		if (profile.nature) profileData += `&nbsp;${pColor(userid)}<strong>Nature:</strong> ${profile.nature}</font><br />`;
 		profileData += `&nbsp;${pColor(userid)}<strong>EXP Level:</strong> ${Server.ExpControl.level(userid)}</font><br />`;
 		profileData += `&nbsp;${pColor(userid)}<strong>Last Seen:</strong> ${getLastSeen(userid)}</font><br />`;
+		if (Db.about.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>About Me:</strong> <button style="background: purple; color: white; border: 1px black solid; font-size: 10px; height: 12px" name="send" value="/pabout show ${userid}">~Show~</button></font><br />`;
 		if (Db.friendcode.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>Friend Code:</strong> ${Db.friendcode.get(userid)}</font><br />`;
 		if (Db.switchfc.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>Switch Friend Code:</strong> SW-${Db.switchfc.get(userid)}</font><br />`;
 		if (profile.data.music.link) profileData += `&nbsp;<acronym title="${profile.data.music.title}"><br /><audio src="${profile.data.music.link}" controls="" style="width: 100%;"></audio></acronym><br />`;
@@ -624,6 +671,7 @@ exports.commands = {
 	profilehelp: [`/profile [user] - Shows a user's profile. Defaults to yourself.
 /pcolor help - Shows profile color commands.
 /pborder help - Shows profile border commands.
+/pabout help - Shows profile about commands.
 /pokemon set [Pokemon] - Set your Favorite Pokemon onto your profile.
 /pokemon delete - Delete your Favorite Pokemon from your profile.
 /type set [type] - Set your favorite type.
