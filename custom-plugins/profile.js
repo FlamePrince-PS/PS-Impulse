@@ -528,7 +528,8 @@ exports.commands = {
 		    if (room.battle) return this.errorReply(`Please use this command outside of battle rooms.`);
 		    let tar = target.toLowerCase();
 		    let show = Db.about.get(tar);
-		    if (Users(user)) Users(user).popup(`|html|${show}`);
+		    this.sendReplyBox(`${show}`);
+		    //if (Users(user)) Users(user).popup(`|html|${show}`);
 		},
 		"": "help",
 		help: function () {
@@ -660,7 +661,7 @@ exports.commands = {
 		if (profile.nature) profileData += `&nbsp;${pColor(userid)}<strong>Nature:</strong> ${profile.nature}</font><br />`;
 		profileData += `&nbsp;${pColor(userid)}<strong>EXP Level:</strong> ${Server.ExpControl.level(userid)}</font><br />`;
 		profileData += `&nbsp;${pColor(userid)}<strong>Last Seen:</strong> ${getLastSeen(userid)}</font><br />`;
-		if (Db.about.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>About Me:</strong> <button style="background: purple; color: white; border: 1px black solid; font-size: 10px; height: 12px" name="send" value="/pabout show ${userid}">~Show~</button></font><br />`;
+		if (Db.about.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>About Me:</strong> <button style="background: red; color: white; border: 1px black solid; font-size: 10px; height: 12px" name="send" value="/pabout show ${userid}">Show</button></font><br />`;
 		if (Db.friendcode.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>Friend Code:</strong> ${Db.friendcode.get(userid)}</font><br />`;
 		if (Db.switchfc.has(userid)) profileData += `&nbsp;${pColor(userid)}<strong>Switch Friend Code:</strong> SW-${Db.switchfc.get(userid)}</font><br />`;
 		if (profile.data.music.link) profileData += `&nbsp;<acronym title="${profile.data.music.title}"><br /><audio src="${profile.data.music.link}" controls="" style="width: 100%;"></audio></acronym><br />`;
