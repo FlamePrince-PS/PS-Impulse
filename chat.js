@@ -652,6 +652,13 @@ class CommandContext {
 		this.sendReply(`|html|<div class="infobox">${html}</div>`);
 	}
 	/**
+	* @pram {string} html
+	*/
+	/* Used for ladders, profile and more.*/
+	sendRB(html) {
+		this.sendReply(`|html|${html}`);
+	},
+	/**
 	 * @param {string} message
 	 */
 	popupReply(message) {
