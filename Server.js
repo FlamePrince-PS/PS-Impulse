@@ -28,6 +28,13 @@ exports.Server = {
 	//
 	// this makes a PM from ~Server stating the message
 
+	sendReplyBox(html) {
+		this.sendReply(`|html|${html}`);
+	},
+	//Format: Server.sendReplyBox(`msg`);
+	// Used for ladders and profile which doesn't require
+	// default sendReplyBox Border.
+
 	regdate: function (target, callback) {
 		target = toId(target);
 		if (regdateCache[target]) return callback(regdateCache[target]);
