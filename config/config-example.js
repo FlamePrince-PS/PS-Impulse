@@ -524,6 +524,7 @@ exports.grouplist = [
 		icon: true,
 		customtitle: true,
 		profile: true,
+		emotes: true,
 	},
 	/**{
 		symbol: '^',
@@ -623,6 +624,7 @@ exports.grouplist = [
 		// Custom
 		news: true,
 		roomshop: true,
+		emotes: true,
 	},
 	{
 		symbol: '%',
