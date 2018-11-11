@@ -2,7 +2,7 @@
 
 class SGgame extends Console.Console {
 	constructor(user, room, muted) {
-		super(user, room, 'background: linear-gradient(blue, paleblue); color: #000;', '<center><br/><br/><br/><br/><img src="http://i.imgur.com/tfYS6TN.png"/></center><!--split-->', '<center><!--mutebutton--><button name="send" value="/console sound" class="button">' + (muted ? 'Unmute' : 'Mute') + '</button><!--endmute-->  <button name="send" value="/console shift" class="button">Shift</button> <button class="button" name="send" value="/console kill">Power</button>', muted);
+		super(user, room, 'background: linear-gradient(blue, white); color: #000;', '<center><br/><br/><br/><br/><img src="http://i.imgur.com/tfYS6TN.png"/></center><!--split-->', '<center><!--mutebutton--><button name="send" value="/console sound" class="button">' + (muted ? 'Unmute' : 'Mute') + '</button><!--endmute-->  <button name="send" value="/console shift" class="button">Shift</button> <button class="button" name="send" value="/console kill">Power</button>', muted);
 		// Lines of text to be displayed
 		this.gameId = 'SGgame';
 		this.version = '(Alpha) 1.0';
