@@ -21,6 +21,35 @@ function saveDishes() {
 }
 
 /**
+ * Used instead of Dex.packTeam to generate more human-readable output.
+ * @param {AnyObject[]} team
+ * @param {string[]} ingredients
+ */
+function stringifyTeam(team, ingredients) {
+	let output = '';
+	for (let i = 0; i < team.length; i++) {
+		const mon = team[i];
+		output += `${ingredients[i]} (${mon.species}) @ ${mon.item}<br/>`;
+		output += `Ability: ${mon.ability}<br/>`;
+		if (mon.happiness !== 255) output += `Happiness: ${mon.happiness}<br/>`;
+		let evs = [];
+		for (const stat in mon.evs) {
+			if (mon.evs[stat]) evs.push(`${mon.evs[stat]} ${stat}`);
+		}
+		if (evs.length) output += `EVs: ${evs.join(' / ')}<br/>`;
+		output += `${mon.nature} Nature<br/>`;
+		let ivs = [];
+		for (const stat in mon.ivs) {
+			if (mon.ivs[stat] !== 31) ivs.push(`${mon.ivs[stat]} ${stat}`);
+		}
+		if (ivs.length) output += `IVs: ${ivs.join(' / ')}<br/>`;
+		output += /** @type {string[]} */ (mon.moves).map(move => `- ${move}<br/>`).join('');
+		output += '<br/>';
+	}
+	return output;
+}
+
+/**
  * @param {string} [generator]
  */
 function generateTeam(generator = '') {
@@ -97,11 +126,21 @@ const commands = {
 		// @ts-ignore
 		if (user.foodfight && user.foodfight.timestamp + FOODFIGHT_COOLDOWN > Date.now()) return this.errorReply("Please wait a few minutes before using this command again.");
 
-		const team = generateTeam(target);
+		target = toId(target);
+
+		let team, importable;
 		const [dish, ingredients] = generateDish();
+		if (target === 'bf') {
+			const bfTeam = Dex.generateTeam('gen7bssfactory');
+			importable = stringifyTeam(bfTeam, ingredients);
+			team = /** @type {Template[]} */ (bfTeam).map(val => val.species);
+		} else {
+			team = generateTeam(target);
+		}
 		// @ts-ignore
 		user.foodfight = {team: team, dish: dish, ingredients: ingredients, timestamp: Date.now()};
-		return this.sendReplyBox(`<div class="ladder"><table style="text-align:center;"><tr><th colspan="7" style="font-size:10pt;">Your dish is: <u>${dish}</u></th></tr><tr><th>Team</th>${team.map(mon => `<td><psicon pokemon="${mon}"/> ${mon}</td>`).join('')}</tr><tr><th>Ingredients</th>${ingredients.map(ingredient => `<td>${ingredient}</td>`).join('')}</tr></table></div>`);
+		const importStr = importable ? `<tr><td colspan=7><details><summary>Importable team:</summary><div style="width:100%;height:400px;overflow:auto;font-family:monospace;background:white;text-align:left;">${importable}</textarea></details></td></tr>` : '';
+		return this.sendReplyBox(`<div class="ladder"><table style="text-align:center;"><tr><th colspan="7" style="font-size:10pt;">Your dish is: <u>${dish}</u></th></tr><tr><th>Team</th>${team.map(mon => `<td><psicon pokemon="${mon}"/> ${mon}</td>`).join('')}</tr><tr><th>Ingredients</th>${ingredients.map(ingredient => `<td>${ingredient}</td>`).join('')}</tr>${importStr}</table></div>`);
 	},
 	checkfoodfight: function (target, room, user) {
 		if (room !== thecafe) return this.errorReply("This command is only available in The Café.");
@@ -127,19 +166,21 @@ const commands = {
 		if (id === 'constructor') return this.errorReply("Invalid dish name.");
 		ingredients = ingredients.map(ingredient => ingredient.trim());
 
+		if ([...ingredients.entries()].some(([index, ingredient]) => ingredients.indexOf(ingredient) !== index)) {
+			return this.errorReply("Please don't enter duplicate ingredients.");
+		}
+
+		if (ingredients.some(ingredient => ingredient.length > 19)) {
+			return this.errorReply("Ingredients can only be 19 characters long.");
+		}
+
 		if (cmd === 'adddish') {
 			if (dishes[id]) return this.errorReply("This dish already exists.");
 			if (ingredients.length < 6) return this.errorReply("Dishes need at least 6 ingredients.");
-			if ([...ingredients.entries()].some(([index, ingredient]) => ingredients.indexOf(ingredient) !== index)) {
-				return this.errorReply("Please don't enter duplicate ingredients.");
-			}
 			dishes[id] = [dish];
 		} else {
 			if (!dishes[id]) return this.errorReply(`Dish not found: ${dish}`);
 			if (ingredients.some(ingredient => dishes[id].includes(ingredient))) return this.errorReply("Please don't enter duplicate ingredients.");
-			if ([...ingredients.entries()].some(([index, ingredient]) => ingredients.indexOf(ingredient) !== index)) {
-				return this.errorReply("Please don't enter duplicate ingredients.");
-			}
 		}
 
 		dishes[id] = dishes[id].concat(ingredients);
