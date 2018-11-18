@@ -145,7 +145,7 @@ class RPSGame {
 				// return their 3 bucks each
 				Economy.writeMoney(this.p1.userid, 3);
 				Economy.writeMoney(this.p2.userid, 3);
-				Economy.logTransaction(`${this.p1.name} had a tie with ${this.p2.name} resulting in both getting their buy-in fee (of 3 ${moneyPlural}} back.`);
+				Economy.logTransaction(`${this.p1.name} had a tie with ${this.p2.name} resulting in both getting their buy-in fee (of 3 ${currencyPlural}} back.`);
 			}
 		} else if (gameResult === "p1") {
 			winner = this.p1;
@@ -168,8 +168,8 @@ class RPSGame {
 		if (this.gameType === "bucks") {
 			// set but bucks
 			Economy.writeMoney(winner.userid, 6);
-			Economy.logTransaction(`${winner.name} has won a game of RPS against ${loser.name} and gained 6 ${moneyPlural}.`);
-			winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html You have also won 6 ${moneyPlural}.`);
+			Economy.logTransaction(`${winner.name} has won a game of RPS against ${loser.name} and gained 6 ${currencyPlural}.`);
+			winner.send(`|pm|~Rock/Paper/Scissors${this.gameType !== "ladderRPSLS" ? `` : `/Lizard/Spock`} Host|${winner.userid}|/html You have also won 6 ${currencyPlural}.`);
 		} else {
 			let file = Db.rpsrank;
 			if (this.gameType === "ladderRPSLS") file = Db.rpslsrank;
@@ -242,7 +242,7 @@ function updateSearches() {
 			// return bucks if it's a search for bucks
 			if (updatedSearches[user.userid] === "bucks") {
 				Economy.writeMoney(userid, 3);
-				Economy.logTransaction(`${user.name} was refunded their join fee of 3 ${moneyPlural} from their RPS buy-in matches.`);
+				Economy.logTransaction(`${user.name} was refunded their join fee of 3 ${currencyPlural} from their RPS buy-in matches.`);
 			}
 		}
 	}
@@ -262,10 +262,10 @@ exports.commands = {
 			let gameType = "ladderRPS";
 			if (target && target === "bucks") {
 				Economy.readMoney(user.userid, money => {
-					if (money < 3) return this.errorReply(`You do not have 3 ${moneyPlural} to play a bucks match.`);
+					if (money < 3) return this.errorReply(`You do not have 3 ${currencyPlural} to play a bucks match.`);
 					gameType = "bucks";
 					Economy.writeMoney(user.userid, -3);
-					Economy.logTransaction(`${user.name} has paid a 3 ${moneyPlural} buy-in fee to play a RPS bucks match.`);
+					Economy.logTransaction(`${user.name} has paid a 3 ${currencyPlural} buy-in fee to play a RPS bucks match.`);
 				});
 			}
 			user.RPSgame = `searching`;
@@ -287,7 +287,7 @@ exports.commands = {
 			updateSearches();
 			if (Rooms.global.RPS.searches[user.userid] === "bucks") {
 				Economy.writeMoney(user.userid, 3);
-				Economy.logTransaction(`${user.name} has cancelled their search for a Rock/Paper/Scissors${user.RPSgame === "searching" ? `` : `/Lizard/Spock`} match and was refunded their 3 ${moneyPlural} buy-in fee.`);
+				Economy.logTransaction(`${user.name} has cancelled their search for a Rock/Paper/Scissors${user.RPSgame === "searching" ? `` : `/Lizard/Spock`} match and was refunded their 3 ${currencyPlural} buy-in fee.`);
 			}
 			delete Rooms.global.RPS.searches[user.userid];
 			user.RPSgame = null;
