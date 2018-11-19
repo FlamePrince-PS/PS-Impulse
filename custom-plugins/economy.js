@@ -204,10 +204,9 @@ exports.commands = {
 		});
 	},
 
-	confirmtransferBucks: 'transfercurrency', //You can change "transferBucks" and "confirmtransferBucks" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "transferawesomebucks" and "confirmtransferawesomebucks"
-	transferBucks: 'transfercurrency',
-	confirmtransfercurrency: 'transfercurrency',
-	transfercurrency: function (target, room, user, connection, cmd) {
+	transferbucks: 'transfercurrency',
+	transfercurrency: 'transferbuck',
+	transferbuck: function (target, room, user, connection, cmd) {
 		if (!target) return this.sendReply("Usage: /" + cmd + " [user], [amount]");
 		let splitTarget = target.split(',');
 		for (let u in splitTarget) splitTarget[u] = splitTarget[u].trim();
@@ -292,7 +291,7 @@ exports.commands = {
 		this.sendReplyBox(rankLadder('Richest Users', currencyPlural, keys.slice(0, target), 'money') + '</div>');
 	},
 
-	resetBucks: 'resetmoney',
+	resetbucks: 'resetmoney',
 	resetmoney: function (target, room, user) {
 		if (!this.can('economy')) return false;
 		if (!target) return this.parse('/help resetmoney');
@@ -326,7 +325,7 @@ exports.commands = {
 
 	economy: 'economystats',
 	currency: 'economystats',
-	Bucks: 'economystats',
+	bucks: 'economystats',
 	economystats: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		const users = Db.currency.keys().map(curUser => ({amount: Db.currency.get(curUser)}));
