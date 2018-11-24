@@ -84,7 +84,7 @@ let Formats = [
 	{
 		name: "[Gen 7] NU",
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3642884/">NU Metagame Discussion</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3643951/">NU Metagame Discussion</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3622107/">NU Viability Rankings</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3612396/">NU Sample Teams</a>`,
 		],
@@ -92,6 +92,10 @@ let Formats = [
 		mod: 'gen7',
 		ruleset: ['[Gen 7] RU'],
 		banlist: ['RU', 'NUBL', 'Drought'],
+		unbanlist: ['Abomasnow-Mega'],
+		onBegin: function () {
+			if (this.rated) this.add('html', `<div class="broadcast-green"><strong>NU is currently suspecting Mega Abomasnow! For information on how to participate check out the <a href="https://www.smogon.com/forums/threads/3643951/">suspect thread</a>.</strong></div>`);
+		},
 	},
 	{
 		name: "[Gen 7] PU",
@@ -103,7 +107,7 @@ let Formats = [
 
 		mod: 'gen7',
 		ruleset: ['[Gen 7] NU'],
-		banlist: ['NU', 'PUBL'],
+		banlist: ['NU', 'PUBL', 'Abomasnow-Mega'],
 	},
 	{
 		name: "[Gen 7] LC",
@@ -118,12 +122,10 @@ let Formats = [
 		maxLevel: 5,
 		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Little Cup'],
 		banlist: [
-			'Aipom', 'Cutiefly', 'Drifloon', 'Gligar', 'Gothita', 'Meditite', 'Misdreavus', 'Murkrow', 'Porygon', 'Scyther', 'Sneasel', 'Swirlix', 'Tangela', 'Torchic', 'Vulpix-Base', 'Yanma',
+			'Aipom', 'Cutiefly', 'Drifloon', 'Gligar', 'Gothita', 'Meditite', 'Misdreavus', 'Murkrow', 'Porygon',
+			'Scyther', 'Sneasel', 'Swirlix', 'Tangela', 'Torchic', 'Vulpix-Base', 'Yanma', 'Wingull',
 			'Eevium Z', 'Dragon Rage', 'Sonic Boom',
 		],
-		onBegin: function () {
-			if (this.rated) this.add('html', `<div class="broadcast-blue"><strong>LC is currently suspecting Wingull! For information on how to participate check out the <a href="https://www.smogon.com/forums/threads/3643597/">suspect thread</a>.</strong></div>`);
-		},
 	},
 	{
 		name: "[Gen 7] Monotype",
@@ -291,7 +293,6 @@ let Formats = [
 
 		mod: 'gen7',
 		gameType: 'doubles',
-		searchShow: false,
 		forcedLevel: 50,
 		teamLength: {
 			validate: [4, 6],
@@ -560,19 +561,26 @@ let Formats = [
 			let problems = this.validateSet(set, teamHas) || [];
 			set.item = item;
 			// @ts-ignore
-			let result = this.format.checkLearnset.call(this, move, this.dex.getTemplate(set.species));
-			if (result && result.type === 'banned') {
-				problems.push(`${move.name} cannot be used as a forte.`);
-			} else if (result) {
-				problems.push(`${set.species} can't learn ${move.name}.`);
-			}
+			if (this.format.checkLearnset.call(this, move, this.dex.getTemplate(set.species))) problems.push(`${set.species} can't learn ${move.name}.`);
 			// @ts-ignore
 			if (move.secondaries && move.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0)) problems.push(`${set.name || set.species}'s move ${move.name} can't be used as an item.`);
 			return problems.length ? problems : null;
 		},
 		checkLearnset: function (move, template, lsetData, set) {
-			if (move.id === 'beatup' || move.id === 'fakeout' || move.damageCallback || move.multihit) return {type: 'banned'};
+			if (move.id === 'beatup' || move.id === 'fakeout' || move.damageCallback || move.multihit) return {type: 'invalid'};
 			return this.checkLearnset(move, template, lsetData, set);
+		},
+		onValidateTeam: function (team, format) {
+			/**@type {{[k: string]: true}} */
+			let itemTable = {};
+			for (const set of team) {
+				let move = this.getMove(set.item);
+				if (!move.exists) continue;
+				if (itemTable[move.id]) {
+					return ["You are limited to one of each forte by Forte Clause.", "(You have more than one " + move.name + ")"];
+				}
+				itemTable[move.id] = true;
+			}
 		},
 		onBegin: function () {
 			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
@@ -959,6 +967,7 @@ let Formats = [
 
 		mod: 'gennext',
 		searchShow: false,
+		challengeShow: false,
 		ruleset: ['Pokemon', 'Standard NEXT', 'Team Preview'],
 		banlist: ['Uber'],
 	},
@@ -1016,6 +1025,46 @@ let Formats = [
 		mod: 'sggame',
 		ruleset: ['Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: ['CAP'],
+	},
+
+	// Let's Go!
+	///////////////////////////////////////////////////////////////////
+
+	{
+		section: "Let's Go!",
+		column: 2,
+	},
+	{
+		name: "[Gen 7 Let's Go] OU",
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3644015/">LGPE OverUsed</a>`,
+		],
+
+		mod: 'letsgo',
+		forcedLevel: 50,
+		ruleset: ['Pokemon', 'Species Clause', 'Nickname Clause', 'Evasion Moves Clause', 'OHKO Clause', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
+		banlist: ['Illegal', 'Unreleased', 'Uber'],
+	},
+	{
+		name: "[Gen 7 Let's Go] Singles No Restrictions",
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3643931/">Let's Go! Discussion</a>`,
+		],
+
+		mod: 'letsgo',
+		ruleset: ['Pokemon', 'Allow AVs', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Illegal', 'Unreleased'],
+	},
+	{
+		name: "[Gen 7 Let's Go] Doubles No Restrictions",
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3643931/">Let's Go! Discussion</a>`,
+		],
+
+		mod: 'letsgo',
+		gameType: 'doubles',
+		ruleset: ['Pokemon', 'Allow AVs', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Illegal', 'Unreleased'],
 	},
 
 	// Randomized Metas

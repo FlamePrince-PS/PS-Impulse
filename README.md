@@ -143,6 +143,7 @@ Owner
 - FlamePrince-PS
 
 
+
 Special thanks
 
 - See http://pokemonshowdown.com/credits

@@ -298,6 +298,7 @@ let BattleStatuses = {
 		onStart: function (target, source, effect) {
 			this.effectData.move = effect.id;
 			target.addVolatile(effect.id, source);
+			this.attrLastMove('[still]');
 		},
 		onEnd: function (target) {
 			target.removeVolatile(this.effectData.move);
@@ -403,6 +404,12 @@ let BattleStatuses = {
 
 				if (posData.source.hasAbility('infiltrator') && this.gen >= 6) {
 					posData.moveData.infiltrates = true;
+				}
+				if (posData.source.hasAbility('normalize') && this.gen >= 6) {
+					posData.moveData.type = 'Normal';
+				}
+				if (posData.source.hasAbility('adaptability') && this.gen >= 6) {
+					posData.moveData.stab = 2;
 				}
 				const hitMove = new this.Data.Move(posData.moveData);
 

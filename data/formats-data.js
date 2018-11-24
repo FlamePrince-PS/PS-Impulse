@@ -442,6 +442,14 @@ let BattleFormatsData = {
 		tier: "(PU)",
 		doublesTier: "DUU",
 	},
+	pikachustarter: {
+		eventPokemon: [
+			{"generation": 7, "level": 5, "perfectIVs": 6, "moves": ["thundershock", "tailwhip", "growl"], "pokeball": "pokeball"},
+		],
+		eventOnly: true,
+		isNonstandard: true,
+		tier: "Illegal",
+	},
 	raichu: {
 		randomBattleMoves: ["nastyplot", "encore", "thunderbolt", "grassknot", "hiddenpowerice", "focusblast", "voltswitch"],
 		randomDoubleBattleMoves: ["fakeout", "encore", "thunderbolt", "grassknot", "hiddenpowerice", "focusblast", "voltswitch", "protect"],
@@ -1609,6 +1617,14 @@ let BattleFormatsData = {
 			{"generation": 7, "level": 10, "nature": "Jolly", "isHidden": false, "moves": ["celebrate", "sandattack", "babydolleyes"], "pokeball": "cherishball"},
 		],
 		tier: "LC",
+	},
+	eeveestarter: {
+		eventPokemon: [
+			{"generation": 7, "level": 5, "perfectIVs": 6, "moves": ["tackle", "tailwhip", "growl"], "pokeball": "pokeball"},
+		],
+		eventOnly: true,
+		isNonstandard: true,
+		tier: "Illegal",
 	},
 	vaporeon: {
 		randomBattleMoves: ["wish", "protect", "scald", "roar", "icebeam", "healbell"],
@@ -2853,7 +2869,7 @@ let BattleFormatsData = {
 	},
 	wingull: {
 		randomBattleMoves: ["scald", "icebeam", "tailwind", "uturn", "airslash", "knockoff", "defog"],
-		tier: "LC",
+		tier: "LC Uber",
 	},
 	pelipper: {
 		randomBattleMoves: ["scald", "uturn", "hurricane", "toxic", "roost", "defog", "knockoff"],
@@ -7165,7 +7181,7 @@ let BattleFormatsData = {
 	},
 	buzzwole: {
 		randomBattleMoves: ["superpower", "drainpunch", "leechlife", "stoneedge", "poisonjab", "earthquake"],
-		randomDoubleBattleMoves: ["hammerarm", "superpower", "leechlife", "icepunch", "poisonjab"],
+		randomDoubleBattleMoves: ["drainpunch", "superpower", "leechlife", "icepunch", "poisonjab", "protect"],
 		eventPokemon: [
 			{"generation": 7, "level": 65, "moves": ["counter", "hammerarm", "lunge", "dynamicpunch"]},
 			{"generation": 7, "level": 60, "shiny": 1, "moves": ["counter", "hammerarm", "lunge", "dynamicpunch"]},
@@ -7332,6 +7348,14 @@ let BattleFormatsData = {
 		eventOnly: true,
 		tier: "UU",
 		doublesTier: "DOU",
+	},
+	meltan: {
+		isNonstandard: true,
+		tier: "Illegal",
+	},
+	melmetal: {
+		isNonstandard: true,
+		tier: "Illegal",
 	},
 	missingno: {
 		randomBattleMoves: ["watergun", "skyattack", "doubleedge", "metronome"],
