@@ -70,7 +70,7 @@ exports.commands = {
 	emotes: "emoticon",
 	emoticon: {
 		add: function (target, room, user) {
-			if (!this.can(`emotes`) && Db.emanager.has(user)) return false;
+			if (!this.can(`emotes`) && Db.emanager.has(user)) return;
 			if (!target) return this.parse("/emoticonshelp");
 
 			let targetSplit = target.split(",");
@@ -90,39 +90,42 @@ exports.commands = {
 
 			this.sendReply(`|raw|The emoticon ${Chat.escapeHTML(targetSplit[0])} has been added: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
 			if (Rooms("upperstaff")) Rooms("upperstaff").add(`|raw|${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
-			//Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has added the emoticon ${Chat.escapeHTML(targetSplit[0])}: <img src="${targetSplit[1]}" width="${size}" height="${size}">`);
 		},
 
 		delete: "del",
 		remove: "del",
 		rem: "del",
 		del: function (target, room, user) {
-			if (!this.can(`emotes`) && Db.emanager.has(user)) return false;
+			if (!this.can(`emotes`) && Db.emanager.has(user)) return;
 			if (!target) return this.parse("/emoticonshelp");
 			if (!emoticons[target]) return this.errorReply("That emoticon does not exist.");
-
 			delete emoticons[target];
 			saveEmoticons();
-
 			this.sendReply("That emoticon has been removed.");
 			if (Rooms("upperstaff")) Rooms("upperstaff").add(`|raw|${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
-			//Server.messageSeniorStaff(`/html ${Server.nameColor(user.name, true)} has removed the emoticon ${Chat.escapeHTML(target)}.`);
 		},
 
 		addmanager: "am",
 		am: function (target, room, user) {
 			if (!this.can("emotes")) return false;
 			if (!target) return this.parse("/emoticonshelp");
-			Db.emanager.set(target, 1);
+			let manager = toId(target);
+			if (manager.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
+			Db.emanager.set(manager, 1);
 			this.sendReply(`${target} has been added as emoticons manager.`);
+			if (Users.get(manager)) Users(manager).popup(`|html|You have been added as emoticon manager by ${Server.nameColor(user.name, true)}.`);
 		},
 
 		removemanager: "rm",
 		rm: function (target, room, user) {
 			if (!this.can("emotes")) return false;
 			if (!target) return this.parse("/emoticonshelp");
-			Db.emanager.remove(target);
-			this.sendReply(`${target} has been removed as emoticons manager.`);
+			let manager = toId(target);
+			if (manager.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
+			if (Db.emanager.has(manager)) return this.errorReply(`$(target) is not a emoticon manager..`);
+			Db.emanager.remove(manager);
+			this.sendReply(`${manager} has been removed as emoticons manager.`);
+			if (Users.get(manager)) Users(manager).popup(`|html|You have been removed as emoticons manager by ${Server.nameColor(user.name, true)}.`);
 		},
 
 		toggle: function (target, room, user) {
@@ -200,16 +203,18 @@ exports.commands = {
 
 	emoticonshelp: [
 		`Emoticon Commands:
-		/emoticon may be substituted with /emoticons, /emotes, or /emote
-		/emoticon add [name], [url] - Adds an emoticon. Requires @, &, #, ~
-		/emoticon del/delete/remove/rem [name] - Removes an emoticon. Requires @, &, #, ~
-		/emoticon toggle - Enables or disables emoticons in the current room depending on if they are already active. Requires @, &, #, ~
-		/emoticon view/list - Displays the list of emoticons.
-		/emoticon ignore - Ignores emoticons in chat messages.
-		/emoticon unignore - Unignores emoticons in chat messages.
-		/emoticon size [size] - Changes the size of emoticons in the current room. Requires @, &, #, ~
-		/randemote - Randomly sends an emote from the emoticon list.
-		/emoticon help - Displays this help command.`,
+/emoticon may be substituted with /emoticons, /emotes, or /emote
+/emoticon addmanager/am [username] - Give [username] ability to add and remove emoticons. Requires @,&,~
+/emoticons removemanager/rm [username] - Take [username]'s ability to add and remove emoticons. Requires @,&,~
+/emoticon add [name], [url] - Adds an emoticon. Requires @, &, #, ~
+/emoticon del/delete/remove/rem [name] - Removes an emoticon. Requires @, &, #, ~
+/emoticon toggle - Enables or disables emoticons in the current room depending on if they are already active. Requires @, &, #, ~
+/emoticon view/list - Displays the list of emoticons.
+/emoticon ignore - Ignores emoticons in chat messages.
+/emoticon unignore - Unignores emoticons in chat messages.
+/emoticon size [size] - Changes the size of emoticons in the current room. Requires @, &, #, ~
+/randemote - Randomly sends an emote from the emoticon list.
+/emoticon help - Displays this help command.`,
 	],
 };
 
