@@ -1,12 +1,12 @@
-/*********************
-* Emoticons Plugin   *
-* Allows User To Use *
-* Emoticcons In Chat *
-* Coded By: JD       *
-* Size CMD By:Insist *
-* Manager Commands   *
-* By: Prince Sky     *
-*********************/
+/***********************
+* Emoticons Plugin     *
+* Allows User To Use   *
+* Emoticons In Chat/PM *
+* Coded By: JD         *
+* Size CMD By:Insist   *
+* Manager Commands     *
+* By: Prince Sky       *
+***********************/
 "use strict";
 
 const FS = require("../lib/fs.js");
