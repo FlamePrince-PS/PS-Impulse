@@ -1,7 +1,12 @@
-/*
-Emoticon plugin
-This plugin allows you to use emoticons in both chat rooms (as long as they are enabled in the room) and private messages.
-*/
+/*********************
+* Emoticons Plugin   *
+* Allows User To Use *
+* Emoticcons In Chat *
+* Coded By: JD       *
+* Size CMD By:Insist *
+* Manager Commands   *
+* By: Prince Sky     *
+*********************/
 "use strict";
 
 const FS = require("../lib/fs.js");
