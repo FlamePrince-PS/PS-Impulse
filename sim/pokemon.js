@@ -458,16 +458,16 @@ class Pokemon {
 			// @ts-ignore
 			stat = this.battle.getStatCallback(stat, statName, this, unboosted);
 		}
+		if (statName === 'spe' && stat > 10000) stat = 10000;
 		return stat;
 	}
 
 	getActionSpeed() {
 		let speed = this.getStat('spe', false, false);
-		if (speed > 10000) speed = 10000;
 		if (this.battle.getPseudoWeather('trickroom')) {
 			speed = 0x2710 - speed;
 		}
-		return speed & 0x1FFF;
+		return this.battle.trunc(speed, 13);
 	}
 
 	/**
@@ -1127,7 +1127,7 @@ class Pokemon {
 	damage(d, source = null, effect = null) {
 		if (!this.hp || isNaN(d) || d <= 0) return 0;
 		if (d < 1 && d > 0) d = 1;
-		d = Math.floor(d);
+		d = this.battle.trunc(d);
 		this.hp -= d;
 		if (this.hp <= 0) {
 			d += this.hp;
@@ -1190,7 +1190,7 @@ class Pokemon {
 	 */
 	heal(d, source = null, effect = null) {
 		if (!this.hp) return false;
-		d = Math.floor(d);
+		d = this.battle.trunc(d);
 		if (isNaN(d)) return false;
 		if (d <= 0) return false;
 		if (this.hp >= this.maxhp) return false;
@@ -1208,7 +1208,7 @@ class Pokemon {
 	 */
 	sethp(d) {
 		if (!this.hp) return 0;
-		d = Math.floor(d);
+		d = this.battle.trunc(d);
 		if (isNaN(d)) return;
 		if (d < 1) d = 1;
 		d = d - this.hp;
