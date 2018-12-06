@@ -495,7 +495,7 @@ exports.commands = {
 		if (target[0] === 'intro') target[0] = 'disableintroscroll';
 		if (target[0] === 'shop') target[0] = 'roomshop';
 		let msg = '';
-		if (['avatar', 'declare', 'icon', 'color', 'emote', 'title', 'disableintroscroll', 'music', 'background', 'roomshop'].indexOf(target[0]) === -1) return this.parse('/help usetoken');
+		if (['avatar', 'declare', 'icon', 'color', 'emote', 'title', 'disableintroscroll', 'profilemusic', 'profilebackground', 'roomshop'].indexOf(target[0]) === -1) return this.parse('/help usetoken');
 		if (!user.tokens || !user.tokens[target[0]] && !user.can('bypassall')) return this.errorReply('You need to buy this from the shop first.');
 		target[1] = target[1].trim();
 
@@ -551,7 +551,7 @@ exports.commands = {
 			msg += `<button class="button" name="send" value="/disableintroscroll ${target[1]}">Disable Intro Scroll for <b>${Rooms(roomid).title}</b></button></center>`;
 			delete user.tokens[target[0]];
 			return Server.messageSeniorStaff(msg);
-		case 'background':
+		case 'profilebackground':
 			if (!target[1]) return this.errorReply('/usetoken background, [img]');
 			target[1] = target[1].trim();
 			if (!['.png', '.gif', '.jpg'].includes(target[1].slice(-4))) return this.errorReply(`The image needs to end in .png, .gif, or .jpg`);
@@ -559,7 +559,7 @@ exports.commands = {
 			msg += `<button class="button" name="send" value="/background set ${user.userid}, ${target[1]}">Set the background</button></center>`;
 			delete user.tokens[target[0]];
 			return Server.messageSeniorStaff(msg);
-		case 'music':
+		case 'profilemusic':
 			if (!target[2]) return this.errorReply('/usetoken music, [link], [name]');
 			target[1] = target[1].trim();
 			if (!['.mp3', '.mp4', '.m4a'].includes(target[1].slice(-4))) return this.errorReply(`The song needs to end in .mp3, .mp4, or .m4a`);
@@ -583,7 +583,7 @@ exports.commands = {
 		'/usetoken [token], [argument(s)] - Redeems a token from the shop. Accepts the following arguments: ',
 		'/usetoken avatar, [image] | /usetoken declare, [message] | /usetoken color, [hex code]',
 		'/usetoken icon [image] | /usetoken title, [name], [hex code] | /usetoken emote, [name], [image]',
-		'/usetoken disableintroscroll [room name] | /usetoken background, [img] | /usetoken music, [song], [name] | /usetoken roomshop, [room name]',
+		'/usetoken disableintroscroll [room name] | /usetoken profilebackground, [img] | /usetoken profilemusic, [song], [name] | /usetoken roomshop, [room name]',
 	],
 
 	bonus: 'dailybonus',
