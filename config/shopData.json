@@ -56,21 +56,21 @@
             "display":"Profile Music",
             "price":25,
             "currency":"bucks",
-            "onbuy":"You have purchased a Profilr Music. To redeem your Profile Music, do /usertoken profilemusic, [title], [link].",
+            "onbuy":"You have purchased a Profilr Music. To redeem your Profile Music, do /usetoken profilemusic, [link], [name].",
             "info":"Redeems an Profile Music to be set in your profile."
          },
          "profilebackground":{
              "display":"Profile Background",
              "price":25,
              "currency":"bucks",
-             "onbuy":"You have purchased a Profile Background. do /usertoken profilebackground, [image]<br />Inappropriate images may get deleted.",
+             "onbuy":"You have purchased a Profile Background. do /usetoken profilebackground, [image]<br />Inappropriate images may get deleted.",
              "info":"Reedems a Profile Background to set as your profile background."
          },
         "roomshop":{
              "display":"Room Shop",
              "price":30,
              "currency":"bucks",
-             "onbuy":"You have purchased a room shop. Pm an @ or higher to active your roomshop.",
+             "onbuy":"You have purchased a room shop. do /usetoken roomshop, [room name]",
              "info":"Redeems a Room shop for your room."
          }
       }
