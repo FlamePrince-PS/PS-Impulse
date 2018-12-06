@@ -15,7 +15,7 @@
             "price":5,
             "currency":"bucks",
             "onbuy":"You have purchased a Global Declare. To redeem your Global Declare, do /usetoken declare, [message you want declared]",
-            "info":"Globally declares a message to every room on the server. (Cannot be used for server advertisements, message must be approved by an administrator.)"
+            "info":"Globally declares a message to every user ( via pm ) on the server. (Cannot be used for server advertisements, message must be approved by an administrator.)"
          },
          "customavatar":{
             "display":"Custom Avatar",
@@ -56,70 +56,22 @@
             "display":"Profile Music",
             "price":25,
             "currency":"bucks",
-            "onbuy":"You have purchased the ability to set your profile music. To redeem this, do /usetoken profilemusic<br/>PM one of our admin after buying.",
-            "info":"Buys ability to set your profile mUsic."
-         },
-         "profileteam":{
-            "display":"Profile Team",
-            "price":25,
-            "currency":"bucks",
-            "onbuy":"You have purchased the ability to set your profile team. To redeem this, do /usetoken profileteam<br/>PM one of our admin after buying.",
-            "info":"Buys ability to set your profile team."
+            "onbuy":"You have purchased a Profilr Music. To redeem your Profile Music, do /usertoken profilemusic, [title], [link].",
+            "info":"Redeems an Profile Music to be set in your profile."
          },
          "profilebackground":{
              "display":"Profile Background",
              "price":25,
              "currency":"bucks",
-             "onbuy":"You have purchased a profile background. To set your profile background use /pbg set [image]<br />Inappropriate images may get deleted. Can  be used only once.",
-             "info":"Buys ability to set your profile background."
+             "onbuy":"You have purchased a Profile Background. do /usertoken profilebackground, [image]<br />Inappropriate images may get deleted.",
+             "info":"Reedems a Profile Background to set as your profile background."
          },
         "roomshop":{
              "display":"Room Shop",
              "price":30,
              "currency":"bucks",
-             "onbuy":"You have purchased a room shop. Pm a upperstaff to set ur roomshop.",
-             "info":"Gives ur room to set ur own private shop"
-         }
-      }
-   },
-   "ssbffa":{
-      "display":"Super Staff Bros FFA",
-      "info":"Further customize your SSBFFA pokemon with these add-ons.",
-      "items":{  
-         "shiny":{  
-            "display":"Shiny",
-            "price":5,
-            "currency":"bucks",
-            "onbuy":"You can now make your SSBFFA pokemon shiny.",
-            "info":"Allows you to toggle whether or not your pokemon is shiny."
-         },
-         "ffacustomsymbol":{
-            "display":"Custom Symbol",
-            "price":10,
-            "currency":"bucks",
-            "onbuy":"You can now set a symbol on your SSBFFA pokemon.",
-            "info":"Allows you to set a custom symbol on your pokemon. Global Auth may set to their auth symbol and lower."
-         },
-         "customitem":{
-            "display":"Custom Item",
-            "price":50,
-            "currency":"bucks",
-            "onbuy":"You have purchased a Custom Item. You are now queued to have your custom item hardcoded into the format. Please note this can take some time as there may be other users ahead of you, and the Administrators are busy alot. Upper staff has been notified of your purchase and will contact you shortly to ask what you want as your custom item. Excessively powerful items will need to be changed before they are approved.<br/>",
-            "info":"Hardcode a custom item into the tier for your pokemon to use. This will take time as the Administrators are busy alot."
-         },
-         "customability":{
-            "display":"Custom Ability",
-            "price":50,
-            "currency":"bucks",
-            "onbuy":"You have purchased a Custom Ability. You are now queued to have your custom ability hardcoded into the format. Please note this can take some time as there may be other users ahead of you, and the Administrators are busy alot. Upper staff has been notified of your purchase and will contact you shortly to ask what you want as your custom ability. Excessively powerful abilities will need to be changed before they are approved.<br/>",
-            "info":"Hardcode a custom ability into the tier for your pokemon to use. This will take time as the Administrators are busy alot."
-         },
-         "custommove":{  
-            "display":"Custom Move",
-            "price":50,
-            "currency":"bucks",
-            "onbuy":"You have purchased a Custom Move. You are now queued to have your custom move hardcoded into the format. Please note this can take some time as there may be other users ahead of you, and the Administrators are busy alot. Upper staff has been notified of your purchase and will contact you shortly to ask what you want as your custom move. Excessively powerful moves will need to be changed before they are approved.<br/>",
-            "info":"Hardcode a custom move into the tier for your pokemon to use. This will take time as the Administrators are busy alot."
+             "onbuy":"You have purchased a room shop. Pm an @ or higher to active your roomshop.",
+             "info":"Redeems a Room shop for your room."
          }
       }
    },
