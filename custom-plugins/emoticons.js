@@ -75,7 +75,7 @@ exports.commands = {
 	emotes: "emoticon",
 	emoticon: {
 		add: function (target, room, user) {
-			if (!this.can(`emotes`) && Db.emanager.has(user)) return;
+			if (!this.can(`emotes`) && Db.emanager.has(user)) return false;
 			if (!target) return this.parse("/emoticonshelp");
 
 			let targetSplit = target.split(",");
@@ -101,7 +101,7 @@ exports.commands = {
 		remove: "del",
 		rem: "del",
 		del: function (target, room, user) {
-			if (!this.can(`emotes`) && Db.emanager.has(user)) return;
+			if (!this.can(`emotes`) && Db.emanager.has(user)) return false;
 			if (!target) return this.parse("/emoticonshelp");
 			if (!emoticons[target]) return this.errorReply("That emoticon does not exist.");
 			delete emoticons[target];
@@ -127,7 +127,7 @@ exports.commands = {
 			if (!target) return this.parse("/emoticonshelp");
 			let manager = toId(target);
 			if (manager.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
-			if (Db.emanager.has(manager)) return this.errorReply(`$(target) is not a emoticon manager..`);
+			if (Db.emanager.has(manager)) return this.errorReply(`${manager} is not a emoticon manager..`);
 			Db.emanager.remove(manager);
 			this.sendReply(`${manager} has been removed as emoticons manager.`);
 			if (Users.get(manager)) Users(manager).popup(`|html|You have been removed as emoticons manager by ${Server.nameColor(user.name, true)}.`);
