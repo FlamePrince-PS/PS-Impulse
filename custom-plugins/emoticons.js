@@ -122,9 +122,9 @@ exports.commands = {
 		addmanager: "am",
 		am: function (target, room, user) {
 			if (!this.can("emotes")) return false;
-			if (!target) return this.parse("/emoticonshelp");
+			if (!target) return this.parse(`/emoticonshelp`);
 			let manager = toId(target);
-			if (manager.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
+			if (manager.length > 18) return this.errorReply(`Usernames cannot exceed 18 characters.`);
 			Db.emanager.set(manager, 1);
 			this.sendReply(`${target} has been added as emoticons manager.`);
 			if (Users.get(manager)) Users(manager).popup(`|html|You have been added as emoticon manager by ${Server.nameColor(user.name, true)}.`);
@@ -133,10 +133,10 @@ exports.commands = {
 		removemanager: "rm",
 		rm: function (target, room, user) {
 			if (!this.can("emotes")) return false;
-			if (!target) return this.parse("/emoticonshelp");
+			if (!target) return this.parse(`/emoticonshelp`);
 			let manager = toId(target);
-			if (manager.length > 18) return this.errorReply("Usernames cannot exceed 18 characters.");
-			if (Db.emanager.has(manager)) return this.errorReply(`${manager} is not a emoticon manager..`);
+			if (manager.length > 18) return this.errorReply(`Usernames cannot exceed 18 characters.`);
+			if (!isEmoter(manager)) return this.errorReply(`${target} isn't a emoticons manager.`);
 			Db.emanager.remove(manager);
 			this.sendReply(`${manager} has been removed as emoticons manager.`);
 			if (Users.get(manager)) Users(manager).popup(`|html|You have been removed as emoticons manager by ${Server.nameColor(user.name, true)}.`);
