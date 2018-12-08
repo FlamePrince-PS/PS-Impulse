@@ -59,10 +59,10 @@ exports.commands = {
 			output = '<table>';
 			Db.badgeData.keys().forEach(badge => {
 				let badgeData = Db.badgeData.get(badge);
-				output += '<center><b><u>Badges are not given automatically. Contact any leader or admin to receive your badge once you meet the requirement.</u></b></center><br><tr ' + TR_CSS + '> <td ' + TD_CSS + '>' + badgeImg(badgeData[1], badge) + '</td> <td ' + TD_CSS + '>' + badge + '</td> <td ' + TD_CSS + '>' + badgeData[0] + '</td></tr>';
+				output += '<tr ' + TR_CSS + '> <td ' + TD_CSS + '>' + badgeImg(badgeData[1], badge) + '</td> <td ' + TD_CSS + '>' + badge + '</td> <td ' + TD_CSS + '>' + badgeData[0] + '</td></tr>';
 			});
 			output += '</table>';
-			this.sendReply('|html|<div class = "infobox' + (this.broadcasting ? '-limited' : '') + '">' + output + '</div>');
+			this.sendReply('|html|<div class = "infobox' + (this.broadcasting ? '-limited' : '') + '"><center><b><u>Badges are not given automatically. Contact any leader or admin to receive your badge once you meet the requirement.</u></b></center><br>' + output + '</div>');
 			break;
 		case 'info':
 			if (!this.runBroadcast()) return;
