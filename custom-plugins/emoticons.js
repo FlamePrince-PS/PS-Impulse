@@ -18,6 +18,15 @@ try {
 	Server.ignoreEmotes = JSON.parse(FS(`config/ignoreemotes.json`).readIfExistsSync());
 } catch (e) {}
 
+function isEmoter(user) {
+	if (!user) return;
+	if (typeof user === "object") user = user.userid;
+	let dev = Db.emanager.get(toId(user));
+	if (dev === 1) return true;
+	return false;
+}
+Server.isEmoter = isEmoter;
+
 function loadEmoticons() {
 	try {
 		emoticons = JSON.parse(FS(`config/emoticons.json`).readIfExistsSync());
@@ -75,7 +84,7 @@ exports.commands = {
 	emotes: "emoticon",
 	emoticon: {
 		add: function (target, room, user) {
-			if (!this.can(`emotes`) && Db.emanager.has(user)) return false;
+			if (!this.can(`emotes`) && isEmoter) return false;
 			if (!target) return this.parse("/emoticonshelp");
 
 			let targetSplit = target.split(",");
@@ -101,7 +110,7 @@ exports.commands = {
 		remove: "del",
 		rem: "del",
 		del: function (target, room, user) {
-			if (!this.can(`emotes`) && Db.emanager.has(user)) return false;
+			if (!this.can(`emotes`) && isEmoter) return false;
 			if (!target) return this.parse("/emoticonshelp");
 			if (!emoticons[target]) return this.errorReply("That emoticon does not exist.");
 			delete emoticons[target];
