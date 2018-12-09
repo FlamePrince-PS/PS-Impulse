@@ -101,9 +101,11 @@ exports.Server = {
 			if (cur[0] < reward || !reward) reward = cur[0];
 			if (cur[1] < time) time = cur[1];
 		}
-		if (Date.now() - time < 86400000) return;
+		// Changed to 9hrs for impulse.
+		if (Date.now() - time < 32400000) return;
 		reward++;
-		if (reward > 7 || Date.now() - time > 172800000) reward = 1;
+		// changed to 18hrs for impulse.
+		if (reward > 7 || Date.now() - time > 64800000) reward = 1;
 		// Loop again to set the ips values
 		for (let ip in user.ips) {
 			Db.DailyBonus.set(ip, [reward, Date.now()]);
