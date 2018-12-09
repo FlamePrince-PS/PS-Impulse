@@ -84,7 +84,7 @@ exports.commands = {
 	emotes: "emoticon",
 	emoticon: {
 		add: function (target, room, user) {
-			if (!this.can(`emotes`) && isEmoter) return false;
+			if (!this.can(`emotes`) && !Server.isEmoter(user.userid) return;
 			if (!target) return this.parse("/emoticonshelp");
 
 			let targetSplit = target.split(",");
@@ -110,7 +110,7 @@ exports.commands = {
 		remove: "del",
 		rem: "del",
 		del: function (target, room, user) {
-			if (!this.can(`emotes`) && isEmoter) return false;
+			if (!this.can(`emotes`) && !Server.isEmoter(user.userid) return;
 			if (!target) return this.parse("/emoticonshelp");
 			if (!emoticons[target]) return this.errorReply("That emoticon does not exist.");
 			delete emoticons[target];
