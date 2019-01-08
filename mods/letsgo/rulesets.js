@@ -85,6 +85,10 @@ let BattleFormats = {
 				}
 			}
 
+			if (!set.happiness || set.happiness !== 70) {
+				set.happiness = 70;
+			}
+
 			// ----------- legality line ------------------------------------------
 			if (!this.getRuleTable(format).has('-illegal')) return problems;
 			// everything after this line only happens if we're doing legality enforcement

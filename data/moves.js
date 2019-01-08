@@ -1032,7 +1032,6 @@ let BattleMovedex = {
 					return;
 				}
 				this.add('-activate', target, 'move: Protect');
-				source.moveThisTurnResult = true;
 				let lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
 					// Outrage counter is reset
@@ -2915,7 +2914,6 @@ let BattleMovedex = {
 			onTryHit: function (target, source, move) {
 				if (move && (move.target === 'self' || move.category !== 'Status')) return;
 				this.add('-activate', target, 'move: Crafty Shield');
-				source.moveThisTurnResult = true;
 				return null;
 			},
 		},
@@ -5321,7 +5319,7 @@ let BattleMovedex = {
 			}
 			for (const ally of target.side.active) {
 				if (ally && this.isAdjacent(target, ally)) {
-					this.damage(ally.maxhp / 16, ally, source, move);
+					this.damage(ally.maxhp / 16, ally, source, this.getEffect('Flame Burst'));
 				}
 			}
 		},
@@ -5331,7 +5329,7 @@ let BattleMovedex = {
 			}
 			for (const ally of target.side.active) {
 				if (ally && this.isAdjacent(target, ally)) {
-					this.damage(ally.maxhp / 16, ally, source, move);
+					this.damage(ally.maxhp / 16, ally, source, this.getEffect('Flame Burst'));
 				}
 			}
 		},
@@ -7975,7 +7973,7 @@ let BattleMovedex = {
 		flags: {contact: 1, protect: 1, mirror: 1, gravity: 1},
 		hasCustomRecoil: true,
 		onMoveFail: function (target, source, move) {
-			this.damage(source.maxhp / 2, source, source, move);
+			this.damage(source.maxhp / 2, source, source, 'crash');
 		},
 		secondary: null,
 		target: "normal",
@@ -8928,7 +8926,7 @@ let BattleMovedex = {
 		flags: {contact: 1, protect: 1, mirror: 1, gravity: 1},
 		hasCustomRecoil: true,
 		onMoveFail: function (target, source, move) {
-			this.damage(source.maxhp / 2, source, source, move);
+			this.damage(source.maxhp / 2, source, source, 'crash');
 		},
 		secondary: null,
 		target: "normal",
@@ -9009,7 +9007,6 @@ let BattleMovedex = {
 					return;
 				}
 				this.add('-activate', target, 'move: Protect');
-				source.moveThisTurnResult = true;
 				let lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
 					// Outrage counter is reset
@@ -10065,7 +10062,6 @@ let BattleMovedex = {
 				}
 				if (move && (move.target === 'self' || move.category === 'Status')) return;
 				this.add('-activate', target, 'move: Mat Block', move.name);
-				source.moveThisTurnResult = true;
 				let lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
 					// Outrage counter is reset
@@ -12515,7 +12511,6 @@ let BattleMovedex = {
 					return;
 				}
 				this.add('-activate', target, 'move: Protect');
-				source.moveThisTurnResult = true;
 				let lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
 					// Outrage counter is reset
@@ -13035,7 +13030,6 @@ let BattleMovedex = {
 					return;
 				}
 				this.add('-activate', target, 'move: Quick Guard');
-				source.moveThisTurnResult = true;
 				let lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
 					// Outrage counter is reset
@@ -15741,7 +15735,6 @@ let BattleMovedex = {
 					return;
 				}
 				this.add('-activate', target, 'move: Protect');
-				source.moveThisTurnResult = true;
 				let lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
 					// Outrage counter is reset
@@ -19005,7 +18998,6 @@ let BattleMovedex = {
 					return;
 				}
 				this.add('-activate', target, 'move: Wide Guard');
-				source.moveThisTurnResult = true;
 				let lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
 					// Outrage counter is reset
@@ -19094,17 +19086,41 @@ let BattleMovedex = {
 		flags: {snatch: 1, heal: 1},
 		sideCondition: 'Wish',
 		effect: {
-			duration: 2,
 			onStart: function (side, source) {
-				this.effectData.hp = source.maxhp / 2;
+				this.effectData.positions = [];
+				for (let i = 0; i < side.active.length; i++) {
+					this.effectData.positions[i] = null;
+				}
+				this.effectData.positions[source.position] = {
+					source,
+					position: source.position,
+					hp: source.maxhp / 2,
+					duration: 2,
+				};
+				this.effectData.wishes = 1;
+			},
+			onRestart: function (side, source) {
+				if (this.effectData.positions[source.position]) return false;
+				this.effectData.positions[source.position] = {
+					source,
+					position: source.position,
+					hp: source.maxhp / 2,
+					duration: 2,
+				};
+				this.effectData.wishes++;
 			},
 			onResidualOrder: 4,
-			onEnd: function (side) {
-				let target = side.active[this.effectData.sourcePosition];
-				if (target && !target.fainted) {
-					let source = this.effectData.source;
-					let damage = this.heal(this.effectData.hp, target, target);
-					if (damage) this.add('-heal', target, target.getHealth, '[from] move: Wish', '[wisher] ' + source.name);
+			onResidual: function (side) {
+				for (const wish of this.effectData.positions) {
+					if (wish && --wish.duration === 0) {
+						let target = side.active[wish.position];
+						if (target && !target.fainted) {
+							let damage = this.heal(wish.hp, target, target);
+							if (damage) this.add('-heal', target, target.getHealth, '[from] move: Wish', '[wisher] ' + wish.source.name);
+						}
+						this.effectData.positions[wish.position] = null;
+						if (--this.effectData.wishes === 0) return side.removeSideCondition('wish');
+					}
 				}
 			},
 		},

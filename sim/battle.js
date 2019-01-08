@@ -589,6 +589,8 @@ class Battle extends Dex.ModdedDex {
 				}
 			}
 			this.singleEvent(eventid, status, statusObj.statusData, statusObj.thing, relayVar);
+			this.faintMessages();
+			if (this.ended) return;
 		}
 	}
 
@@ -1943,7 +1945,7 @@ class Battle extends Dex.ModdedDex {
 	 * @param {number} damage
 	 * @param {Pokemon?} [target]
 	 * @param {Pokemon?} [source]
-	 * @param {'drain' | 'recoil' | Effect?} [effect]
+	 * @param {'drain' | 'recoil' | 'crash' | Effect?} [effect]
 	 * @param {boolean} [instafaint]
 	 */
 	damage(damage, target = null, source = null, effect = null, instafaint = false) {
