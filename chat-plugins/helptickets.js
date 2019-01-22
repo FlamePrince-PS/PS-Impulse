@@ -148,6 +148,7 @@ class HelpTicket extends Rooms.RoomGame {
 	forfeit(user) {
 		if (!(user.userid in this.players)) return;
 		this.removePlayer(user);
+		if (!this.ticket.open) return;
 		this.modnote(user, `${user.name} is no longer interested in this ticket.`);
 		if (this.playerCount - 1 > 0) return; // There are still users in the ticket room, dont close the ticket
 		this.close(user);
@@ -195,6 +196,11 @@ class HelpTicket extends Rooms.RoomGame {
 		this.modnote(staff, `${staff.name} closed this ticket.`);
 		notifyStaff(this.ticket.escalated);
 		this.room.pokeExpireTimer();
+		for (const ticketGameUser of Object.values(this.players)) {
+			this.removePlayer(ticketGameUser);
+			const user = Users(ticketGameUser.userid);
+			if (user) user.updateSearch();
+		}
 	}
 
 	/**

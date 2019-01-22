@@ -245,6 +245,7 @@ let BattleStatuses = {
 		onResidual: function (pokemon) {
 			if (this.effectData.source && (!this.effectData.source.isActive || this.effectData.source.hp <= 0 || !this.effectData.source.activeTurns)) {
 				delete pokemon.volatiles['partiallytrapped'];
+				this.add('-end', pokemon, this.effectData.sourceEffect, '[partiallytrapped]', '[silent]');
 				return;
 			}
 			if (this.effectData.source.hasItem('bindingband')) {
@@ -528,6 +529,7 @@ let BattleStatuses = {
 		num: 0,
 		effectType: 'Weather',
 		duration: 0,
+		onTryMovePriority: 1,
 		onTryMove: function (attacker, defender, move) {
 			if (move.type === 'Fire' && move.category !== 'Status') {
 				this.debug('Primordial Sea fire suppress');
@@ -602,6 +604,7 @@ let BattleStatuses = {
 		num: 0,
 		effectType: 'Weather',
 		duration: 0,
+		onTryMovePriority: 1,
 		onTryMove: function (attacker, defender, move) {
 			if (move.type === 'Water' && move.category !== 'Status') {
 				this.debug('Desolate Land water suppress');

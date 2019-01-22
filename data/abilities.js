@@ -850,7 +850,7 @@ let BattleAbilities = {
 		num: 226,
 	},
 	"emergencyexit": {
-		desc: "When this Pokemon has more than 1/2 its maximum HP and takes damage bringing it to 1/2 or less of its maximum HP, it immediately switches out to a chosen ally. This effect applies after all hits from a multi-hit move; Sheer Force prevents it from activating if the move has a secondary effect. This effect applies to both direct and indirect damage, except Curse and Substitute on use, Belly Drum, Pain Split, Struggle recoil, and confusion damage.",
+		desc: "When this Pokemon has more than 1/2 its maximum HP and takes damage bringing it to 1/2 or less of its maximum HP, it immediately switches out to a chosen ally. This effect applies after all hits from a multi-hit move; Sheer Force prevents it from activating if the move has a secondary effect. This effect applies to both direct and indirect damage, except Curse and Substitute on use, Belly Drum, Pain Split, and confusion damage.",
 		shortDesc: "This Pokemon switches out when it reaches 1/2 or less of its maximum HP.",
 		onAfterMoveSecondary: function (target, source, move) {
 			if (!source || source === target || !target.hp || !move.totalDamage) return;
@@ -1635,7 +1635,7 @@ let BattleAbilities = {
 		},
 		id: "keeneye",
 		name: "Keen Eye",
-		rating: 1,
+		rating: 0.5,
 		num: 51,
 	},
 	"klutz": {
@@ -2038,7 +2038,7 @@ let BattleAbilities = {
 		num: 121,
 	},
 	"mummy": {
-		desc: "Pokemon making contact with this Pokemon have their Ability changed to Mummy. Does not affect the Battle Bond, Comatose, Disguise, Multitype, Power Construct, RKS System, Schooling, Shields Down, and Stance Change Abilities.",
+		desc: "Pokemon making contact with this Pokemon have their Ability changed to Mummy. Does not affect the Battle Bond, Comatose, Disguise, Multitype, Power Construct, RKS System, Schooling, Shields Down, Stance Change, and Zen Mode Abilities.",
 		shortDesc: "Pokemon making contact with this Pokemon have their Ability changed to Mummy.",
 		id: "mummy",
 		name: "Mummy",
@@ -4011,7 +4011,7 @@ let BattleAbilities = {
 		num: 73,
 	},
 	"wimpout": {
-		desc: "When this Pokemon has more than 1/2 its maximum HP and takes damage bringing it to 1/2 or less of its maximum HP, it immediately switches out to a chosen ally. This effect applies after all hits from a multi-hit move; Sheer Force prevents it from activating if the move has a secondary effect. This effect applies to both direct and indirect damage, except Curse and Substitute on use, Belly Drum, Pain Split, Struggle recoil, and confusion damage.",
+		desc: "When this Pokemon has more than 1/2 its maximum HP and takes damage bringing it to 1/2 or less of its maximum HP, it immediately switches out to a chosen ally. This effect applies after all hits from a multi-hit move; Sheer Force prevents it from activating if the move has a secondary effect. This effect applies to both direct and indirect damage, except Curse and Substitute on use, Belly Drum, Pain Split, and confusion damage.",
 		shortDesc: "This Pokemon switches out when it reaches 1/2 or less of its maximum HP.",
 		onAfterMoveSecondary: function (target, source, move) {
 			if (!source || source === target || !target.hp || !move.totalDamage) return;
@@ -4066,7 +4066,7 @@ let BattleAbilities = {
 		num: 147,
 	},
 	"zenmode": {
-		desc: "If this Pokemon is a Darmanitan, it changes to Zen Mode if it has 1/2 or less of its maximum HP at the end of a turn. If Darmanitan's HP is above 1/2 of its maximum HP at the end of a turn, it changes back to Standard Mode. If Darmanitan loses this Ability while in Zen Mode it reverts to Standard Mode immediately.",
+		desc: "If this Pokemon is a Darmanitan, it changes to Zen Mode if it has 1/2 or less of its maximum HP at the end of a turn. If Darmanitan's HP is above 1/2 of its maximum HP at the end of a turn, it changes back to Standard Mode. This Ability cannot be removed or suppressed.",
 		shortDesc: "If Darmanitan, at end of turn changes Mode to Standard if > 1/2 max HP, else Zen.",
 		onResidualOrder: 27,
 		onResidual: function (pokemon) {

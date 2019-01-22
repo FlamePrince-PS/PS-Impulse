@@ -717,7 +717,7 @@ const commands = {
 		});
 		if (targetRoom) {
 			// The creator is a Room Owner in subroom groupchats and a Host otherwise..
-			targetRoom.auth[user.userid] = parent ? '#' : '\u2605';
+			targetRoom.auth[user.userid] = parent ? '#' : Users.HOST_SYMBOL;
 			// Join after creating room. No other response is given.
 			user.joinRoom(targetRoom.id);
 			user.popup(`You've just made a groupchat; it is now your responsibility, regardless of whether or not you actively partake in the room. For more info, read your groupchat's staff intro.`);
@@ -1685,11 +1685,13 @@ const commands = {
 		if (!target) return this.parse('/help warn');
 		if (!this.canTalk()) return;
 		if (room.isPersonal && !user.can('warn')) return this.errorReply("Warning is unavailable in group chats.");
+		// If used in staff, help tickets or battles, log the warn to the global modlog.
+		const global = room.id === 'staff' || room.id.startsWith('help-') || (room.battle && !room.parent);
 
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
 		if (!targetUser || !targetUser.connected) return this.errorReply(`User '${this.targetUsername}' not found.`);
-		if (!(targetUser in room.users)) {
+		if (!(targetUser in room.users) && room.id !== 'staff') {
 			return this.errorReply(`User ${this.targetUsername} is not in the room ${room.id}.`);
 		}
 		if (target.length > MAX_REASON_LENGTH) {
@@ -1700,6 +1702,9 @@ const commands = {
 
 		this.addModAction(`${targetUser.name} was warned by ${user.name}.${(target ? ` (${target})` : ``)}`);
 		this.modlog('WARN', targetUser, target, {noalts: 1});
+		if (global) {
+			this.globalModlog('WARN', targetUser, ` by ${user.userid}${(target ? `: ${target}` : ``)}`);
+		}
 		targetUser.send(`|c|~|/warn ${target}`);
 		let userid = targetUser.getLastId();
 		this.add(`|unlink|${userid}`);
@@ -1853,7 +1858,7 @@ const commands = {
 			Rooms.rooms.forEach((curRoom, id) => {
 				if (id === 'global' || !curRoom.auth) return;
 				// Destroy personal rooms of the locked user.
-				if (curRoom.isPersonal && curRoom.auth[userid] === '#') {
+				if (curRoom.isPersonal && curRoom.auth[userid] === Users.HOST_SYMBOL) {
 					curRoom.destroy();
 				} else {
 					if (curRoom.isPrivate || curRoom.battle) return;
@@ -2058,7 +2063,7 @@ const commands = {
 		for (const roomid of targetUser.inRooms) {
 			if (roomid === 'global') continue;
 			let targetRoom = Rooms.get(roomid);
-			if (targetRoom.isPersonal && targetRoom.auth[userid] === '#') {
+			if (targetRoom.isPersonal && targetRoom.auth[userid] === Users.HOST_SYMBOL) {
 				targetRoom.destroy();
 			}
 		}
@@ -2258,6 +2263,7 @@ const commands = {
 		}
 		if (!this.can('receiveauthmessages', null, room)) return false;
 		this.modlog('NOTE', null, target);
+		if (room.id === 'staff' || room.id === 'upperstaff') this.globalModlog('NOTE', null, ` by ${user.userid}: ${target}`);
 		return this.privateModAction(`(${user.name} notes: ${target})`);
 	},
 	modnotehelp: [`/modnote [note] - Adds a moderator note that can be read through modlog. Requires: % @ * # & ~`],
@@ -2949,6 +2955,8 @@ const commands = {
 			} else if (target === 'chat' || target === 'commands') {
 				if (lock['chat']) return this.errorReply(`Hot-patching chat has been disabled by ${lock['chat'].by} (${lock['chat'].reason})`);
 				if (lock['tournaments']) return this.errorReply(`Hot-patching tournaments has been disabled by ${lock['tournaments'].by} (${lock['tournaments'].reason})`);
+
+				Chat.destroy();
 
 				const processManagers = require('./lib/process-manager').processManagers;
 				for (let manager of processManagers.slice()) {

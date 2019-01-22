@@ -71,7 +71,7 @@ let Formats = [
 	{
 		name: "[Gen 7] RU",
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3639410/">RU Metagame Discussion</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3645883/">RU Metagame Discussion</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3622740/">RU Viability Rankings</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3622057/">RU Sample Teams</a>`,
 		],
@@ -104,6 +104,9 @@ let Formats = [
 		mod: 'gen7',
 		ruleset: ['[Gen 7] NU'],
 		banlist: ['NU', 'PUBL'],
+		onBegin: function () {
+			if (this.rated) this.add('html', `<div class="broadcast-green"><strong>PU is currently suspecting Alolan Exeggutor! For information on how to participate check out the <a href="https://www.smogon.com/forums/threads/3645983/">suspect thread</a>.</strong></div>`);
+		},
 	},
 	{
 		name: "[Gen 7] LC",
@@ -207,6 +210,28 @@ let Formats = [
 			if (set.item) {
 				let item = this.getItem(set.item);
 				if (!item.isBerry) return [`${set.name || set.species} has ${item.name}, which is banned in ${format.name}.`];
+			}
+		},
+	},
+	{
+		name: "[Gen 7] Simple Symphony",
+		threads: [`&bullet; <a href="https://www.smogon.com/forums/threads/3645825/">Simple Symphony Discussion</a>`],
+
+		mod: 'gen7',
+		forcedLevel: 50,
+		teamLength: {
+			validate: [3, 6],
+			battle: 3,
+		},
+		ruleset: ['Pokemon', 'Standard GBU'],
+		banlist: ['Darmanitan'],
+		onValidateSet: function (set, format) {
+			let template = this.getTemplate(set.species);
+			if (!template.types) return [`Invalid pokemon ${set.name || set.species}`];
+			if (template.types.length > 1) return [`${template.species} is dual-type, and cannot participate in ${format.name}.`];
+			if (set.item) {
+				let item = this.getItem(set.item);
+				if (item.megaStone) return [`${set.name || set.species} has ${item.name}, which is banned in ${format.name}.`];
 			}
 		},
 	},
@@ -590,7 +615,7 @@ let Formats = [
 			battle: 1,
 		},
 		ruleset: ['Pokemon', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Accuracy Moves Clause', 'Swagger Clause', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-		banlist: ['Illegal', 'Unreleased', 'Charizard', 'Mewtwo'],
+		banlist: ['Illegal', 'Unreleased', 'Charizard', 'Mewtwo', 'Hypnosis', 'Lovely Kiss', 'Sing', 'Sleep Powder'],
 	},
 	{
 		section: "Other Metagames",
@@ -780,7 +805,7 @@ let Formats = [
 		// searchShow: false,
 		ruleset: ['[Gen 7] Doubles OU', 'Sleep Clause Mod'],
 		banlist: [
-			'Kangaskhanite', 'Mawilite', 'Medichamite', 'Skill Swap',
+			'Kangaskhanite', 'Mawilite', 'Medichamite',
 			'Huge Power', 'Imposter', 'Normalize', 'Pure Power', 'Wonder Guard', 'Mimic', 'Sketch', 'Sweet Scent', 'Transform',
 		],
 		onSwitchInPriority: 2,
@@ -943,6 +968,9 @@ let Formats = [
 		forcedLevel: 50,
 		ruleset: ['Pokemon', 'Species Clause', 'Nickname Clause', 'Evasion Moves Clause', 'OHKO Clause', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 		banlist: ['Illegal', 'Unreleased', 'Uber'],
+		onBegin: function () {
+			if (this.rated) this.add('html', `<div class="broadcast-red"><strong>Let's Go OU is currently suspecting Mew! For information on how to participate check out the <a href="https://www.smogon.com/forums/threads/3645963/">suspect thread</a>.</strong></div>`);
+		},
 	},
 	{
 		name: "[Gen 7 Let's Go] Random Battle",
@@ -1649,10 +1677,7 @@ let Formats = [
 		gameType: 'doubles',
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Swagger Clause', 'Team Preview'],
-		banlist: [
-			'Arceus', 'Dialga', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-White', 'Jirachi',
-			'Lugia', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Zekrom', 'Soul Dew', 'Dark Void', 'Sky Drop',
-		],
+		banlist: ['DUber', 'Soul Dew', 'Dark Void', 'Sky Drop'],
 	},
 	{
 		name: "[Gen 5] GBU Doubles",
