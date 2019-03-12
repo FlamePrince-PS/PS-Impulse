@@ -1,9 +1,12 @@
 /node_modules
 /eslint-cache
-/chat-plugins/private.js
-/chat-plugins/*-private.js
+/server/chat-plugins/private.js
+/server/chat-plugins/*-private.js
 npm-debug.log
 .eslintcache
+
+# Typescript build artifacts
+.*-dist/
 
 # visual studio live share
 .vs
@@ -27,7 +30,6 @@ tmp/**/*
 .installed.cfg
 
 downloads
-build
 dist
 
 # egg related
@@ -49,4 +51,3 @@ local_settings.py
 .svn
 
 pip-log.txt
-

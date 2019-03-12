@@ -7,9 +7,16 @@ Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex
   [2]: https://github.com/Zarel/Pokemon-Showdown-Client
   [3]: https://github.com/Zarel/Pokemon-Showdown-Dex
 
+<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/FlamePrince-PS/PokemonShowdown-Impulse.svg?branch=master)](https://travis-ci.org/FlamePrince-PS/PokemonShowdown-Impulse)
 [![Dependency Status](https://david-dm.org/FlamePrince-PS/PokemonShowdown-Impulse.svg)](https://david-dm.org/FlamePrince-PS/PokemonShowdown-Impulse)
 [![devDependency Status](https://david-dm.org/FlamePrince-PS/PokemonShowdown-Impulse/dev-status.svg)](https://david-dm.org/FlamePrince-PS/PokemonShowdown-Impulse?type=dev)
+=======
+[![Build Status](https://api.travis-ci.com/Zarel/Pokemon-Showdown.svg)](https://travis-ci.com/Zarel/Pokemon-Showdown)
+[![Dependency Status](https://david-dm.org/zarel/Pokemon-Showdown.svg)](https://david-dm.org/zarel/Pokemon-Showdown)
+[![devDependency Status](https://david-dm.org/zarel/Pokemon-Showdown/dev-status.svg)](https://david-dm.org/zarel/Pokemon-Showdown?type=dev)
+[![Total Alerts](https://img.shields.io/lgtm/alerts/g/Zarel/Pokemon-Showdown.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Zarel/Pokemon-Showdown/alerts)
+>>>>>>> 37b537feea3beaaaac23bbe3e75a720bfd9b8b29
 
 Introduction
 ------------------------------------------------------------------------
@@ -29,13 +36,18 @@ Installing
 
     ./pokemon-showdown
 
-(Requires Node.js 8+)
+(Requires Node.js v10+)
+
+If your distro package manager has an old Node.js version, the simplest way to upgrade is `n` – usually no root necessary:
+
+    npm install --global n
+    n latest
 
 
 Detailed installation instructions
 ------------------------------------------------------------------------
 
-Pokémon Showdown requires you to have [Node.js][6] installed, 8.x or later (7.7 or later can work, but you might as well be on the latest stable).
+Pokémon Showdown requires you to have [Node.js][6] installed, v10.x or later.
 
 Next, obtain a copy of Pokémon Showdown Impulse. If you're reading this outside of GitHub, you've probably already done this. If you're reading this in GitHub, there's a "Clone or download" button near the top right (it's green). I recommend the "Open in Desktop" method - you need to install GitHub Desktop which is more work than "Download ZIP", but it makes it much easier to update in the long run (it lets you use the `/updateserver` command).
 
